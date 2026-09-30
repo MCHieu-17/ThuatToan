@@ -1,0 +1,755 @@
+{
+  "instance": "tc0c20s3cf2",
+  "method": "ga_vns",
+  "seed": 0,
+  "customers": 20,
+  "served": 20,
+  "unserved": [],
+  "vehicles": 6,
+  "operating_hours": 53.34520223366021,
+  "electricity_cost": 363.32830620331106,
+  "wear_proxy_kwh": 62.010922597073346,
+  "replans": [
+    {
+      "time": 0.0,
+      "revealed": 10,
+      "outstanding": 10,
+      "failed": [],
+      "evaluations": 637,
+      "solve_seconds": 0.3534317000003284,
+      "score": 0.7793288993128893
+    },
+    {
+      "time": 0.503506040341829,
+      "revealed": 11,
+      "outstanding": 8,
+      "failed": [],
+      "evaluations": 631,
+      "solve_seconds": 0.3130554970002777,
+      "score": 0.6106703112981944
+    },
+    {
+      "time": 1.5507378465966632,
+      "revealed": 12,
+      "outstanding": 8,
+      "failed": [],
+      "evaluations": 540,
+      "solve_seconds": 0.25517996800044784,
+      "score": 0.5902596337666434
+    },
+    {
+      "time": 2.1708591772689183,
+      "revealed": 13,
+      "outstanding": 7,
+      "failed": [],
+      "evaluations": 442,
+      "solve_seconds": 0.22737923200020305,
+      "score": 0.7402646428523829
+    },
+    {
+      "time": 2.360713577263567,
+      "revealed": 14,
+      "outstanding": 7,
+      "failed": [],
+      "evaluations": 498,
+      "solve_seconds": 0.24169656899994152,
+      "score": 0.7081033405497956
+    },
+    {
+      "time": 3.0544348672190083,
+      "revealed": 15,
+      "outstanding": 7,
+      "failed": [],
+      "evaluations": 451,
+      "solve_seconds": 0.23686151099991548,
+      "score": 0.627183876627739
+    },
+    {
+      "time": 3.4199196595772063,
+      "revealed": 16,
+      "outstanding": 6,
+      "failed": [],
+      "evaluations": 251,
+      "solve_seconds": 0.12847018000047683,
+      "score": 0.7226780541546385
+    },
+    {
+      "time": 3.649158741300643,
+      "revealed": 17,
+      "outstanding": 7,
+      "failed": [],
+      "evaluations": 370,
+      "solve_seconds": 0.19903869700010546,
+      "score": 0.4582471925068564
+    },
+    {
+      "time": 4.494191439839968,
+      "revealed": 18,
+      "outstanding": 5,
+      "failed": [],
+      "evaluations": 105,
+      "solve_seconds": 0.04924716999994416,
+      "score": 0.7273169019586039
+    },
+    {
+      "time": 4.565055266189491,
+      "revealed": 19,
+      "outstanding": 5,
+      "failed": [],
+      "evaluations": 96,
+      "solve_seconds": 0.04378187099973729,
+      "score": 0.6685866281616224
+    },
+    {
+      "time": 4.833031838853794,
+      "revealed": 20,
+      "outstanding": 6,
+      "failed": [],
+      "evaluations": 250,
+      "solve_seconds": 0.10429284400015604,
+      "score": 0.6697549273654101
+    }
+  ],
+  "routes": {
+    "0": [
+      {
+        "kind": "dispatch",
+        "node": 0,
+        "start": 0.0,
+        "end": 0.0,
+        "battery_after": 16000.0,
+        "distance_km": 0.0,
+        "charge_wh": 16000.0,
+        "cost": 16.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "visit",
+        "node": 14,
+        "start": 0.0,
+        "end": 2.0103393865287367,
+        "battery_after": 8448.303067356315,
+        "distance_km": 60.41357546114947,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 11,
+        "start": 2.0103393865287367,
+        "end": 3.139224560865038,
+        "battery_after": 5303.877195674808,
+        "distance_km": 25.155406973452056,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "station",
+        "node": 23,
+        "start": 3.139224560865038,
+        "end": 3.7582401604261477,
+        "battery_after": 2208.799197869259,
+        "distance_km": 24.76062398244439,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 991.2008021307411
+      },
+      {
+        "kind": "charge",
+        "node": 23,
+        "start": 3.7582401604261477,
+        "end": 3.972247945221667,
+        "battery_after": 11597.527821156544,
+        "distance_km": 0.0,
+        "charge_wh": 9388.728623287285,
+        "cost": 28.16618586986189,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "depot",
+        "node": 0,
+        "start": 3.972247945221667,
+        "end": 6.291753509452976,
+        "battery_after": 0.0,
+        "distance_km": 92.78022256925235,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 3200.0
+      }
+    ],
+    "1": [
+      {
+        "kind": "dispatch",
+        "node": 0,
+        "start": 0.0,
+        "end": 0.0,
+        "battery_after": 16000.0,
+        "distance_km": 0.0,
+        "charge_wh": 16000.0,
+        "cost": 16.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "visit",
+        "node": 5,
+        "start": 0.0,
+        "end": 2.835882622265083,
+        "battery_after": 4320.586888674585,
+        "distance_km": 93.43530489060332,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "station",
+        "node": 21,
+        "start": 2.835882622265083,
+        "end": 3.1590030526002755,
+        "battery_after": 2704.984736998622,
+        "distance_km": 12.924817213407701,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 495.0152630013781
+      },
+      {
+        "kind": "charge",
+        "node": 21,
+        "start": 3.1590030526002755,
+        "end": 3.2673682405341893,
+        "battery_after": 7459.070401196117,
+        "distance_km": 0.0,
+        "charge_wh": 4754.085664197495,
+        "cost": 14.262256992592528,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 3,
+        "start": 3.2673682405341893,
+        "end": 4.513275280653801,
+        "battery_after": 3729.5352005980585,
+        "distance_km": 29.836281604784467,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "station",
+        "node": 21,
+        "start": 4.513275280653801,
+        "end": 5.259182320773412,
+        "battery_after": 0.0,
+        "distance_km": 29.836281604784467,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "charge",
+        "node": 21,
+        "start": 5.259182320773412,
+        "end": 5.489688513455375,
+        "battery_after": 10112.529743466766,
+        "distance_km": 0.0,
+        "charge_wh": 10112.529743466766,
+        "cost": 15.168794615200142,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "depot",
+        "node": 0,
+        "start": 5.489688513455375,
+        "end": 7.512194462148728,
+        "battery_after": 0.0,
+        "distance_km": 80.90023794773413,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 3200.0
+      }
+    ],
+    "2": [
+      {
+        "kind": "dispatch",
+        "node": 0,
+        "start": 0.0,
+        "end": 0.0,
+        "battery_after": 16000.0,
+        "distance_km": 0.0,
+        "charge_wh": 16000.0,
+        "cost": 16.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "visit",
+        "node": 8,
+        "start": 0.0,
+        "end": 1.6476239039859704,
+        "battery_after": 10261.880480070147,
+        "distance_km": 45.90495615943882,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 6,
+        "start": 1.6476239039859704,
+        "end": 2.4563802804383443,
+        "battery_after": 8718.098597808279,
+        "distance_km": 12.350255058094953,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "depot",
+        "node": 0,
+        "start": 2.4563802804383443,
+        "end": 3.3064371167734214,
+        "battery_after": 4467.814416132894,
+        "distance_km": 34.002273453403085,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 1,
+        "start": 3.3064371167734214,
+        "end": 3.986337783809428,
+        "battery_after": 3568.3110809528616,
+        "distance_km": 7.196026681440259,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 19,
+        "start": 3.986337783809428,
+        "end": 4.721322490758625,
+        "battery_after": 2393.387546206877,
+        "distance_km": 9.399388277967878,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 806.6124537931232
+      },
+      {
+        "kind": "station",
+        "node": 22,
+        "start": 4.721322490758625,
+        "end": 4.771624081190737,
+        "battery_after": 2141.8795940463137,
+        "distance_km": 2.012063617284504,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 251.50795216056304
+      },
+      {
+        "kind": "charge",
+        "node": 22,
+        "start": 4.771624081190737,
+        "end": 5.00935025556233,
+        "battery_after": 12571.15692131621,
+        "distance_km": 0.0,
+        "charge_wh": 10429.277327269896,
+        "cost": 30.672524841578923,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 15,
+        "start": 5.00935025556233,
+        "end": 7.577711563458028,
+        "battery_after": 2229.350381837723,
+        "distance_km": 82.7344523158279,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 970.649618162277
+      },
+      {
+        "kind": "station",
+        "node": 21,
+        "start": 7.577711563458028,
+        "end": 8.023581639825572,
+        "battery_after": 4.547473508864641e-13,
+        "distance_km": 17.83480305470178,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 2229.3503818377226
+      },
+      {
+        "kind": "charge",
+        "node": 21,
+        "start": 8.023581639825572,
+        "end": 8.158575868609564,
+        "battery_after": 5922.327456329986,
+        "distance_km": 0.0,
+        "charge_wh": 5922.327456329986,
+        "cost": 8.88349118449493,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 4,
+        "start": 8.158575868609564,
+        "end": 9.250808614242562,
+        "battery_after": 2961.163728164993,
+        "distance_km": 23.689309825319942,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 238.8362718350072
+      },
+      {
+        "kind": "station",
+        "node": 21,
+        "start": 9.250808614242562,
+        "end": 9.84304135987556,
+        "battery_after": 0.0,
+        "distance_km": 23.689309825319942,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 2961.163728164993
+      },
+      {
+        "kind": "charge",
+        "node": 21,
+        "start": 9.84304135987556,
+        "end": 10.103758328617038,
+        "battery_after": 11437.905725432624,
+        "distance_km": 0.0,
+        "charge_wh": 11437.905725432624,
+        "cost": 17.15685858814891,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 7,
+        "start": 10.103758328617038,
+        "end": 12.571339473703564,
+        "battery_after": 1600.0,
+        "distance_km": 78.70324580346099,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 1600.0
+      },
+      {
+        "kind": "depot",
+        "node": 0,
+        "start": 12.571339473703564,
+        "end": 12.626838347566013,
+        "battery_after": 1322.5056306877568,
+        "distance_km": 2.219954954497945,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 277.4943693122432
+      }
+    ],
+    "3": [
+      {
+        "kind": "dispatch",
+        "node": 0,
+        "start": 0.0,
+        "end": 0.0,
+        "battery_after": 16000.0,
+        "distance_km": 0.0,
+        "charge_wh": 16000.0,
+        "cost": 16.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "station",
+        "node": 23,
+        "start": 0.0,
+        "end": 2.3195055642313087,
+        "battery_after": 4402.472178843456,
+        "distance_km": 92.78022256925235,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "charge",
+        "node": 23,
+        "start": 2.3195055642313087,
+        "end": 2.597474723432105,
+        "battery_after": 14966.39255966514,
+        "distance_km": 0.0,
+        "charge_wh": 10563.920380821684,
+        "cost": 31.691761142465083,
+        "wear_wh": 2166.3925596651407
+      },
+      {
+        "kind": "visit",
+        "node": 13,
+        "start": 2.597474723432105,
+        "end": 4.046193135290967,
+        "battery_after": 10222.800500370833,
+        "distance_km": 37.94873647435446,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 2,
+        "start": 4.046193135290967,
+        "end": 4.9043289335574904,
+        "battery_after": 8432.121509038216,
+        "distance_km": 14.325431930660939,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 17,
+        "start": 4.9043289335574904,
+        "end": 5.665993914974568,
+        "battery_after": 7123.796601952825,
+        "distance_km": 10.46659925668313,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 16,
+        "start": 5.665993914974568,
+        "end": 6.535451710263827,
+        "battery_after": 5276.5076255065305,
+        "distance_km": 14.778311811570358,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "station",
+        "node": 23,
+        "start": 6.535451710263827,
+        "end": 7.11585781808834,
+        "battery_after": 2374.4770863839653,
+        "distance_km": 23.21624431298052,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 825.5229136160347
+      },
+      {
+        "kind": "charge",
+        "node": 23,
+        "start": 7.11585781808834,
+        "end": 7.326089121601539,
+        "battery_after": 11597.527821156544,
+        "distance_km": 0.0,
+        "charge_wh": 9223.050734772578,
+        "cost": 13.834576102158891,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "depot",
+        "node": 0,
+        "start": 7.326089121601539,
+        "end": 9.645594685832847,
+        "battery_after": 0.0,
+        "distance_km": 92.78022256925235,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 3200.0
+      }
+    ],
+    "4": [
+      {
+        "kind": "dispatch",
+        "node": 0,
+        "start": 0.503506040341829,
+        "end": 0.503506040341829,
+        "battery_after": 16000.0,
+        "distance_km": 0.0,
+        "charge_wh": 16000.0,
+        "cost": 16.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "visit",
+        "node": 9,
+        "start": 0.503506040341829,
+        "end": 2.654110569749161,
+        "battery_after": 7746.97735296334,
+        "distance_km": 66.02418117629328,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "station",
+        "node": 23,
+        "start": 2.654110569749161,
+        "end": 3.7939966386174495,
+        "battery_after": 2047.5470086218984,
+        "distance_km": 45.595442754731536,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 1152.4529913781016
+      },
+      {
+        "kind": "charge",
+        "node": 23,
+        "start": 3.7939966386174495,
+        "end": 4.125644239198295,
+        "battery_after": 14966.39255966514,
+        "distance_km": 0.0,
+        "charge_wh": 12918.845551043243,
+        "cost": 38.756536653129686,
+        "wear_wh": 2166.3925596651407
+      },
+      {
+        "kind": "visit",
+        "node": 20,
+        "start": 4.125644239198295,
+        "end": 6.122283495164809,
+        "battery_after": 7483.19627983257,
+        "distance_km": 59.86557023866056,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "station",
+        "node": 23,
+        "start": 6.122283495164809,
+        "end": 7.618922751131323,
+        "battery_after": 0.0,
+        "distance_km": 59.86557023866056,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "charge",
+        "node": 23,
+        "start": 7.618922751131323,
+        "end": 7.883278164701803,
+        "battery_after": 11597.527821156544,
+        "distance_km": 0.0,
+        "charge_wh": 11597.527821156544,
+        "cost": 17.396291731734827,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "depot",
+        "node": 0,
+        "start": 7.883278164701803,
+        "end": 10.202783728933111,
+        "battery_after": 0.0,
+        "distance_km": 92.78022256925235,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 3200.0
+      }
+    ],
+    "5": [
+      {
+        "kind": "dispatch",
+        "node": 0,
+        "start": 2.1708591772689183,
+        "end": 2.1708591772689183,
+        "battery_after": 16000.0,
+        "distance_km": 0.0,
+        "charge_wh": 16000.0,
+        "cost": 48.0,
+        "wear_wh": 3200.0
+      },
+      {
+        "kind": "visit",
+        "node": 12,
+        "start": 2.1708591772689183,
+        "end": 4.502731528853493,
+        "battery_after": 6840.638242077124,
+        "distance_km": 73.274894063383,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "visit",
+        "node": 18,
+        "start": 4.502731528853493,
+        "end": 5.182596929917733,
+        "battery_after": 5941.311236755923,
+        "distance_km": 7.194616042569608,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 0.0
+      },
+      {
+        "kind": "station",
+        "node": 23,
+        "start": 5.182596929917733,
+        "end": 6.365663522506671,
+        "battery_after": 25.97827381123261,
+        "distance_km": 47.322663703557524,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 3174.0217261887674
+      },
+      {
+        "kind": "charge",
+        "node": 23,
+        "start": 6.365663522506671,
+        "end": 6.659540916104858,
+        "battery_after": 12918.663928441378,
+        "distance_km": 0.0,
+        "charge_wh": 12892.685654630146,
+        "cost": 19.339028481945217,
+        "wear_wh": 118.66392844137772
+      },
+      {
+        "kind": "visit",
+        "node": 10,
+        "start": 6.659540916104858,
+        "end": 9.423273701793134,
+        "battery_after": 1600.0,
+        "distance_km": 90.54931142753102,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 1600.0
+      },
+      {
+        "kind": "depot",
+        "node": 0,
+        "start": 9.423273701793134,
+        "end": 9.74040271733728,
+        "battery_after": 14.354922279263974,
+        "distance_km": 12.685160621765888,
+        "charge_wh": 0.0,
+        "cost": 0.0,
+        "wear_wh": 1585.645077720736
+      }
+    ]
+  },
+  "dynamic_ratio": 0.5,
+  "releases": {
+    "11": 1.5507378465966632,
+    "19": 3.649158741300643,
+    "17": 4.494191439839968,
+    "15": 3.4199196595772063,
+    "1": 2.360713577263567,
+    "18": 0.503506040341829,
+    "12": 2.1708591772689183,
+    "3": 3.0544348672190083,
+    "4": 4.565055266189491,
+    "10": 4.833031838853794,
+    "6": 0.0,
+    "8": 0.0,
+    "5": 0.0,
+    "20": 0.0,
+    "7": 0.0,
+    "16": 0.0,
+    "9": 0.0,
+    "2": 0.0,
+    "14": 0.0,
+    "13": 0.0
+  }
+}
