@@ -1,0 +1,59 @@
+{
+  "vehicles": 5,
+  "seed": 42,
+  "dynamic_fraction": 0.5,
+  "release_until_fraction": 0.35,
+  "start_clock_hour": 8.0,
+  "station_ports": 2,
+  "station_power_kw": 40.0,
+  "charger_power_kw": 44.0,
+  "power_fractions": [
+    0.5,
+    1.0
+  ],
+  "station_overrides": {},
+  "tou": [
+    {
+      "start": 0.0,
+      "end": 9.0,
+      "price": 0.12
+    },
+    {
+      "start": 9.0,
+      "end": 12.0,
+      "price": 0.25
+    },
+    {
+      "start": 12.0,
+      "end": 17.0,
+      "price": 0.45
+    },
+    {
+      "start": 17.0,
+      "end": 24.0,
+      "price": 0.18
+    }
+  ],
+  "w_time": 1.0,
+  "w_electricity": 0.3,
+  "w_degradation": 0.2,
+  "deep_charge_delta_soc": 0.6,
+  "deep_discharge_soc": 0.15,
+  "discharge_reset_soc": 0.25,
+  "deep_charge_cost": 0.8,
+  "deep_discharge_cost": 0.6,
+  "reserve_soc": 0.02,
+  "time_step_hours": 0.08333333333333333,
+  "soc_step": 0.1,
+  "candidate_stations": 3,
+  "max_station_hops": 2,
+  "max_labels": 12000,
+  "dp_budget_seconds": 0.8,
+  "solver_budget_seconds": 10.0,
+  "population": 10,
+  "generations": 20,
+  "mutation_probability": 0.3,
+  "elite_size": 2,
+  "vns_iterations": 8,
+  "replan_interval_hours": 0.5
+}

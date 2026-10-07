@@ -1,0 +1,1932 @@
+{
+  "instance": "tc2c10s2ct0",
+  "algorithm": "ga_vns",
+  "seed": 43,
+  "config": {
+    "vehicles": 5,
+    "seed": 42,
+    "dynamic_fraction": 0.5,
+    "release_until_fraction": 0.05,
+    "start_clock_hour": 8.0,
+    "station_ports": 2,
+    "station_power_kw": 40.0,
+    "charger_power_kw": 44.0,
+    "power_fractions": [
+      0.5,
+      1.0
+    ],
+    "station_overrides": {},
+    "tou": [
+      {
+        "start": 0.0,
+        "end": 9.0,
+        "price": 0.12
+      },
+      {
+        "start": 9.0,
+        "end": 12.0,
+        "price": 0.25
+      },
+      {
+        "start": 12.0,
+        "end": 17.0,
+        "price": 0.45
+      },
+      {
+        "start": 17.0,
+        "end": 24.0,
+        "price": 0.18
+      }
+    ],
+    "w_time": 1.0,
+    "w_electricity": 0.3,
+    "w_degradation": 0.2,
+    "deep_charge_delta_soc": 0.6,
+    "deep_discharge_soc": 0.15,
+    "discharge_reset_soc": 0.25,
+    "deep_charge_cost": 0.8,
+    "deep_discharge_cost": 0.6,
+    "reserve_soc": 0.02,
+    "time_step_hours": 0.08333333333333333,
+    "soc_step": 0.1,
+    "candidate_stations": 3,
+    "max_station_hops": 2,
+    "max_labels": 12000,
+    "dp_budget_seconds": 0.8,
+    "solver_budget_seconds": 5.0,
+    "population": 10,
+    "generations": 20,
+    "mutation_probability": 0.3,
+    "elite_size": 2,
+    "vns_iterations": 8,
+    "replan_interval_hours": 0.5
+  },
+  "releases": {
+    "1": 0.336152,
+    "2": 0.0,
+    "3": 0.396683,
+    "4": 0.227141,
+    "5": 0.249638,
+    "6": 0.0,
+    "7": 0.0,
+    "8": 0.010559,
+    "9": 0.0,
+    "10": 0.0
+  },
+  "actions": [
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 0.0,
+      "end": 0.9571181026916167,
+      "origin": 0,
+      "destination": 10,
+      "energy_before": 16.0,
+      "energy_after": 11.214409486541918,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 0.0,
+      "end": 1.7157841683906518,
+      "origin": 0,
+      "destination": 2,
+      "energy_before": 16.0,
+      "energy_after": 7.421079158046741,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 0.249638,
+      "end": 0.25,
+      "origin": 0,
+      "destination": 0,
+      "energy_before": 16.0,
+      "energy_after": 16.0,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 0.25,
+      "end": 1.8157141541481958,
+      "origin": 0,
+      "destination": 4,
+      "energy_before": 16.0,
+      "energy_after": 8.171429229259022,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "service",
+      "start": 0.9571181026916167,
+      "end": 1.4571181026916167,
+      "origin": 10,
+      "destination": 10,
+      "energy_before": 11.214409486541918,
+      "energy_after": 11.214409486541918,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 1.4571181026916167,
+      "end": 1.5,
+      "origin": 10,
+      "destination": 10,
+      "energy_before": 11.214409486541918,
+      "energy_after": 11.214409486541918,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 1.5,
+      "end": 1.581196135991807,
+      "origin": 10,
+      "destination": 9,
+      "energy_before": 11.214409486541918,
+      "energy_after": 10.808428806582883,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "service",
+      "start": 1.581196135991807,
+      "end": 2.081196135991807,
+      "origin": 9,
+      "destination": 9,
+      "energy_before": 10.808428806582883,
+      "energy_after": 10.808428806582883,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "service",
+      "start": 1.7157841683906518,
+      "end": 2.215784168390652,
+      "origin": 2,
+      "destination": 2,
+      "energy_before": 7.421079158046741,
+      "energy_after": 7.421079158046741,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 1.8157141541481958,
+      "end": 2.315714154148196,
+      "origin": 4,
+      "destination": 4,
+      "energy_before": 8.171429229259022,
+      "energy_after": 8.171429229259022,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 2.081196135991807,
+      "end": 2.083333333333333,
+      "origin": 9,
+      "destination": 9,
+      "energy_before": 10.808428806582883,
+      "energy_after": 10.808428806582883,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 2.083333333333333,
+      "end": 2.972083649788973,
+      "origin": 9,
+      "destination": 0,
+      "energy_before": 10.808428806582883,
+      "energy_after": 6.364677224304684,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 2.215784168390652,
+      "end": 2.25,
+      "origin": 2,
+      "destination": 2,
+      "energy_before": 7.421079158046741,
+      "energy_after": 7.421079158046741,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 2.25,
+      "end": 2.353938082529937,
+      "origin": 2,
+      "destination": 1,
+      "energy_before": 7.421079158046741,
+      "energy_after": 6.901388745397055,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 2.315714154148196,
+      "end": 2.333333333333333,
+      "origin": 4,
+      "destination": 4,
+      "energy_before": 8.171429229259022,
+      "energy_after": 8.171429229259022,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 2.333333333333333,
+      "end": 2.373117909490432,
+      "origin": 4,
+      "destination": 3,
+      "energy_before": 8.171429229259022,
+      "energy_after": 7.9725063484735275,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "service",
+      "start": 2.353938082529937,
+      "end": 2.853938082529937,
+      "origin": 1,
+      "destination": 1,
+      "energy_before": 6.901388745397055,
+      "energy_after": 6.901388745397055,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 2.373117909490432,
+      "end": 2.873117909490432,
+      "origin": 3,
+      "destination": 3,
+      "energy_before": 7.9725063484735275,
+      "energy_after": 7.9725063484735275,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 2.853938082529937,
+      "end": 2.9166666666666665,
+      "origin": 1,
+      "destination": 1,
+      "energy_before": 6.901388745397055,
+      "energy_after": 6.901388745397055,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 2.873117909490432,
+      "end": 2.9166666666666665,
+      "origin": 3,
+      "destination": 3,
+      "energy_before": 7.9725063484735275,
+      "energy_after": 7.9725063484735275,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 2.9166666666666665,
+      "end": 3.4632042339939275,
+      "origin": 1,
+      "destination": 12,
+      "energy_before": 6.901388745397055,
+      "energy_after": 4.168700908760751,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 2.9166666666666665,
+      "end": 3.3657070323355005,
+      "origin": 3,
+      "destination": 12,
+      "energy_before": 7.9725063484735275,
+      "energy_after": 5.727304520129358,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 2.972083649788973,
+      "end": 3.0,
+      "origin": 0,
+      "destination": 0,
+      "energy_before": 6.364677224304684,
+      "energy_after": 6.364677224304684,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 3.3657070323355005,
+      "end": 3.4166666666666665,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 5.727304520129358,
+      "energy_after": 5.727304520129358,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "charge",
+      "start": 3.4166666666666665,
+      "end": 4.0719311008311525,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 5.727304520129358,
+      "energy_after": 12.8,
+      "electricity": 1.9234537066825295,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 20.0,
+      "power_segments": [
+        [
+          3.4166666666666665,
+          4.0719311008311525,
+          10.793650793650793
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 3.4632042339939275,
+      "end": 3.5,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 4.168700908760751,
+      "energy_after": 4.168700908760751,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "charge",
+      "start": 3.5,
+      "end": 4.003193886394225,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 4.168700908760751,
+      "energy_after": 9.600000000000001,
+      "electricity": 1.3647195116925854,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 20.0,
+      "power_segments": [
+        [
+          3.5,
+          4.003193886394225,
+          10.793650793650793
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 4.003193886394225,
+      "end": 4.083333333333333,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 9.600000000000001,
+      "energy_after": 9.600000000000001,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 4.0719311008311525,
+      "end": 4.083333333333333,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 12.8,
+      "energy_after": 12.8,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 4.083333333333333,
+      "end": 5.916055148012255,
+      "origin": 12,
+      "destination": 0,
+      "energy_before": 9.600000000000001,
+      "energy_after": 0.4363909266053927,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 1,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 4.083333333333333,
+      "end": 4.55957992124762,
+      "origin": 12,
+      "destination": 8,
+      "energy_before": 12.8,
+      "energy_after": 10.418767060428568,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 4.55957992124762,
+      "end": 5.05957992124762,
+      "origin": 8,
+      "destination": 8,
+      "energy_before": 10.418767060428568,
+      "energy_after": 10.418767060428568,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 5.05957992124762,
+      "end": 5.083333333333333,
+      "origin": 8,
+      "destination": 8,
+      "energy_before": 10.418767060428568,
+      "energy_after": 10.418767060428568,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 5.083333333333333,
+      "end": 5.1375043587989815,
+      "origin": 8,
+      "destination": 6,
+      "energy_before": 10.418767060428568,
+      "energy_after": 10.147911933100325,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 5.1375043587989815,
+      "end": 5.6375043587989815,
+      "origin": 6,
+      "destination": 6,
+      "energy_before": 10.147911933100325,
+      "energy_after": 10.147911933100325,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 5.6375043587989815,
+      "end": 5.666666666666666,
+      "origin": 6,
+      "destination": 6,
+      "energy_before": 10.147911933100325,
+      "energy_after": 10.147911933100325,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 5.666666666666666,
+      "end": 5.773280748757166,
+      "origin": 6,
+      "destination": 5,
+      "energy_before": 10.147911933100325,
+      "energy_after": 9.614841522647822,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 5.773280748757166,
+      "end": 6.273280748757166,
+      "origin": 5,
+      "destination": 5,
+      "energy_before": 9.614841522647822,
+      "energy_after": 9.614841522647822,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 5.916055148012255,
+      "end": 5.916666666666666,
+      "origin": 0,
+      "destination": 0,
+      "energy_before": 0.4363909266053927,
+      "energy_after": 0.4363909266053927,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 6.273280748757166,
+      "end": 6.333333333333333,
+      "origin": 5,
+      "destination": 5,
+      "energy_before": 9.614841522647822,
+      "energy_after": 9.614841522647822,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 6.333333333333333,
+      "end": 6.461261535853341,
+      "origin": 5,
+      "destination": 7,
+      "energy_before": 9.614841522647822,
+      "energy_after": 8.975200510047786,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 6.461261535853341,
+      "end": 6.961261535853341,
+      "origin": 7,
+      "destination": 7,
+      "energy_before": 8.975200510047786,
+      "energy_after": 8.975200510047786,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 6.961261535853341,
+      "end": 7.0,
+      "origin": 7,
+      "destination": 7,
+      "energy_before": 8.975200510047786,
+      "energy_after": 8.975200510047786,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 7.0,
+      "end": 7.6205320297937895,
+      "origin": 7,
+      "destination": 12,
+      "energy_before": 8.975200510047786,
+      "energy_after": 5.8725403610788405,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 7.6205320297937895,
+      "end": 7.666666666666666,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 5.8725403610788405,
+      "energy_after": 5.8725403610788405,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "charge",
+      "start": 7.666666666666666,
+      "end": 8.012004839096127,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 5.8725403610788405,
+      "energy_after": 9.600000000000001,
+      "electricity": 1.677356837514524,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 20.0,
+      "power_segments": [
+        [
+          7.666666666666666,
+          8.012004839096127,
+          10.793650793650793
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 8.012004839096127,
+      "end": 8.083333333333332,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 9.600000000000001,
+      "energy_after": 9.600000000000001,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 8.083333333333332,
+      "end": 9.916055148012253,
+      "origin": 12,
+      "destination": 0,
+      "energy_before": 9.600000000000001,
+      "energy_after": 0.4363909266053927,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 1,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 9.916055148012253,
+      "end": 9.916666666666666,
+      "origin": 0,
+      "destination": 0,
+      "energy_before": 0.4363909266053927,
+      "energy_after": 0.4363909266053927,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    }
+  ],
+  "decisions": [
+    {
+      "time": 0.0,
+      "known_customers": [
+        2,
+        6,
+        7,
+        9,
+        10
+      ],
+      "locked_customers": [],
+      "new_customers": [
+        2,
+        6,
+        7,
+        9,
+        10
+      ],
+      "pending_customers": [
+        2,
+        6,
+        7,
+        9,
+        10
+      ],
+      "unassigned": [],
+      "F_remaining": 10.004394489551277,
+      "runtime_seconds": 2.1783712849996846,
+      "evaluations": 366,
+      "diagnostics": {
+        "dp_calls": 193,
+        "dp_statuses": {
+          "optimal_discrete": 176,
+          "no_path_in_discrete_graph": 17
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "initial",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 1,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 2,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 3,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 4,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 5,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 6,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 7,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 8,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 9,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 10,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 11,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 12,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 13,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 14,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 15,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 16,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 17,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 18,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 19,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        },
+        {
+          "step": 20,
+          "phase": "GA_VNS",
+          "F_remaining": 10.004394489551277,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.010559,
+      "known_customers": [
+        2,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        10
+      ],
+      "new_customers": [
+        8
+      ],
+      "pending_customers": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "unassigned": [],
+      "F_remaining": 7.331650551301405,
+      "runtime_seconds": 0.8871659189999264,
+      "evaluations": 339,
+      "diagnostics": {
+        "dp_calls": 112,
+        "dp_statuses": {
+          "optimal_discrete": 101,
+          "no_path_in_discrete_graph": 11
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "initial",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 1,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 2,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 3,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 4,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 5,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 6,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 7,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 8,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 9,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 10,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 11,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 12,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 13,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 14,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 15,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 16,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 17,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 18,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 19,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        },
+        {
+          "step": 20,
+          "phase": "GA_VNS",
+          "F_remaining": 7.331650551301405,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.227141,
+      "known_customers": [
+        2,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        10
+      ],
+      "new_customers": [
+        4
+      ],
+      "pending_customers": [
+        4,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unassigned": [],
+      "F_remaining": 7.786204272361049,
+      "runtime_seconds": 1.2389016560000528,
+      "evaluations": 340,
+      "diagnostics": {
+        "dp_calls": 151,
+        "dp_statuses": {
+          "optimal_discrete": 128,
+          "no_path_in_discrete_graph": 23
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "initial",
+          "F_remaining": 7.78620427236105,
+          "unassigned": 0
+        },
+        {
+          "step": 1,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 2,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 3,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 4,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 5,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 6,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 7,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 8,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 9,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 10,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 11,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 12,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 13,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 14,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 15,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 16,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 17,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 18,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 19,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        },
+        {
+          "step": 20,
+          "phase": "GA_VNS",
+          "F_remaining": 7.786204272361049,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.249638,
+      "known_customers": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        10
+      ],
+      "new_customers": [
+        5
+      ],
+      "pending_customers": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unassigned": [],
+      "F_remaining": 12.138402683315999,
+      "runtime_seconds": 3.1465410339997106,
+      "evaluations": 341,
+      "diagnostics": {
+        "dp_calls": 326,
+        "dp_statuses": {
+          "optimal_discrete": 292,
+          "no_path_in_discrete_graph": 34
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "initial",
+          "F_remaining": 14.282550157198582,
+          "unassigned": 0
+        },
+        {
+          "step": 1,
+          "phase": "GA_VNS",
+          "F_remaining": 14.1023248720163,
+          "unassigned": 0
+        },
+        {
+          "step": 2,
+          "phase": "GA_VNS",
+          "F_remaining": 14.1023248720163,
+          "unassigned": 0
+        },
+        {
+          "step": 3,
+          "phase": "GA_VNS",
+          "F_remaining": 14.1023248720163,
+          "unassigned": 0
+        },
+        {
+          "step": 4,
+          "phase": "GA_VNS",
+          "F_remaining": 14.1023248720163,
+          "unassigned": 0
+        },
+        {
+          "step": 5,
+          "phase": "GA_VNS",
+          "F_remaining": 14.1023248720163,
+          "unassigned": 0
+        },
+        {
+          "step": 6,
+          "phase": "GA_VNS",
+          "F_remaining": 14.1023248720163,
+          "unassigned": 0
+        },
+        {
+          "step": 7,
+          "phase": "GA_VNS",
+          "F_remaining": 13.995470663395006,
+          "unassigned": 0
+        },
+        {
+          "step": 8,
+          "phase": "GA_VNS",
+          "F_remaining": 12.176029435876448,
+          "unassigned": 0
+        },
+        {
+          "step": 9,
+          "phase": "GA_VNS",
+          "F_remaining": 12.176029435876448,
+          "unassigned": 0
+        },
+        {
+          "step": 10,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 11,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 12,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 13,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 14,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 15,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 16,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 17,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 18,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 19,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        },
+        {
+          "step": 20,
+          "phase": "GA_VNS",
+          "F_remaining": 12.138402683315999,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.336152,
+      "known_customers": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        4,
+        10
+      ],
+      "new_customers": [
+        1
+      ],
+      "pending_customers": [
+        1,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unassigned": [],
+      "F_remaining": 10.874841012016711,
+      "runtime_seconds": 1.6136177090002093,
+      "evaluations": 341,
+      "diagnostics": {
+        "dp_calls": 186,
+        "dp_statuses": {
+          "optimal_discrete": 164,
+          "no_path_in_discrete_graph": 22
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "initial",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 1,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 2,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 3,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 4,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 5,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 6,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 7,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 8,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 9,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 10,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 11,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 12,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 13,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 14,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 15,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 16,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 17,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 18,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 19,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        },
+        {
+          "step": 20,
+          "phase": "GA_VNS",
+          "F_remaining": 10.874841012016711,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.396683,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        4,
+        10
+      ],
+      "new_customers": [
+        3
+      ],
+      "pending_customers": [
+        1,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "unassigned": [],
+      "F_remaining": 11.07437592486976,
+      "runtime_seconds": 1.870251380999889,
+      "evaluations": 342,
+      "diagnostics": {
+        "dp_calls": 208,
+        "dp_statuses": {
+          "optimal_discrete": 170,
+          "no_path_in_discrete_graph": 38
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "initial",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 1,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 2,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 3,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 4,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 5,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 6,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 7,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 8,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 9,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 10,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 11,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 12,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 13,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 14,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 15,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 16,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 17,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 18,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 19,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        },
+        {
+          "step": 20,
+          "phase": "GA_VNS",
+          "F_remaining": 11.07437592486976,
+          "unassigned": 0
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "travel_hours": 11.398799026503118,
+    "wait_hours": 0.6810998138420425,
+    "charge_hours": 1.503796492988172,
+    "service_hours": 5.0,
+    "T_total": 13.583695333333333,
+    "C_electricity": 4.965530055889639,
+    "N_deep_charge": 0,
+    "N_deep_discharge": 2,
+    "D_battery_degradation": 1.2,
+    "F": 15.313354350100225,
+    "makespan_hours": 9.916666666666666,
+    "served": 10,
+    "total_customers": 10,
+    "unserved": [],
+    "complete": true,
+    "runtime_seconds": 10.935410678000153,
+    "solver_seconds": 10.934848983999473,
+    "replans": 6,
+    "max_replan_seconds": 3.1465410339997106,
+    "objective_valid": true
+  },
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "checked_actions": 49,
+    "served_once": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  }
+}

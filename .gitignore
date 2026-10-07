@@ -1,7 +1,7 @@
 __pycache__/
-*.py[cod]
 .pytest_cache/
-web/frontend/node_modules/
-web/frontend/.next/
-web/frontend/*.tsbuildinfo
-web/frontend/next-env.d.ts
+.venv/
+*.egg-info/
+results/*
+!results/README.md
+data/montoya-et-al-2017/*.xml

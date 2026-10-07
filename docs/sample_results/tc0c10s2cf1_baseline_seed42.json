@@ -1,0 +1,2124 @@
+{
+  "instance": "tc0c10s2cf1",
+  "algorithm": "baseline",
+  "seed": 42,
+  "config": {
+    "vehicles": 5,
+    "seed": 42,
+    "dynamic_fraction": 0.5,
+    "release_until_fraction": 0.05,
+    "start_clock_hour": 8.0,
+    "station_ports": 2,
+    "station_power_kw": 40.0,
+    "charger_power_kw": 44.0,
+    "power_fractions": [
+      0.5,
+      1.0
+    ],
+    "station_overrides": {},
+    "tou": [
+      {
+        "start": 0.0,
+        "end": 9.0,
+        "price": 0.12
+      },
+      {
+        "start": 9.0,
+        "end": 12.0,
+        "price": 0.25
+      },
+      {
+        "start": 12.0,
+        "end": 17.0,
+        "price": 0.45
+      },
+      {
+        "start": 17.0,
+        "end": 24.0,
+        "price": 0.18
+      }
+    ],
+    "w_time": 1.0,
+    "w_electricity": 0.3,
+    "w_degradation": 0.2,
+    "deep_charge_delta_soc": 0.6,
+    "deep_discharge_soc": 0.15,
+    "discharge_reset_soc": 0.25,
+    "deep_charge_cost": 0.8,
+    "deep_discharge_cost": 0.6,
+    "reserve_soc": 0.02,
+    "time_step_hours": 0.08333333333333333,
+    "soc_step": 0.1,
+    "candidate_stations": 3,
+    "max_station_hops": 2,
+    "max_labels": 12000,
+    "dp_budget_seconds": 0.8,
+    "solver_budget_seconds": 5.0,
+    "population": 10,
+    "generations": 20,
+    "mutation_probability": 0.3,
+    "elite_size": 2,
+    "vns_iterations": 8,
+    "replan_interval_hours": 0.5
+  },
+  "releases": {
+    "1": 0.070629,
+    "2": 0.052145,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.370593,
+    "6": 0.0,
+    "7": 0.273138,
+    "8": 0.0,
+    "9": 0.0,
+    "10": 0.295656
+  },
+  "actions": [
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 0.0,
+      "end": 1.0871647184304685,
+      "origin": 0,
+      "destination": 9,
+      "energy_before": 16.0,
+      "energy_after": 10.564176407847658,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 0.0,
+      "end": 1.434856983291366,
+      "origin": 0,
+      "destination": 3,
+      "energy_before": 16.0,
+      "energy_after": 8.82571508354317,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 0.052145,
+      "end": 0.08333333333333333,
+      "origin": 0,
+      "destination": 0,
+      "energy_before": 16.0,
+      "energy_after": 16.0,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 3,
+      "kind": "wait",
+      "start": 0.070629,
+      "end": 0.08333333333333333,
+      "origin": 0,
+      "destination": 0,
+      "energy_before": 16.0,
+      "energy_after": 16.0,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 0.08333333333333333,
+      "end": 0.9387412038839847,
+      "origin": 0,
+      "destination": 2,
+      "energy_before": 16.0,
+      "energy_after": 11.722960647246744,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 3,
+      "kind": "drive",
+      "start": 0.08333333333333333,
+      "end": 2.4886702380100982,
+      "origin": 0,
+      "destination": 12,
+      "energy_before": 16.0,
+      "energy_after": 3.973315476616177,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 0.9387412038839847,
+      "end": 1.4387412038839846,
+      "origin": 2,
+      "destination": 2,
+      "energy_before": 11.722960647246744,
+      "energy_after": 11.722960647246744,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "service",
+      "start": 1.0871647184304685,
+      "end": 1.5871647184304685,
+      "origin": 9,
+      "destination": 9,
+      "energy_before": 10.564176407847658,
+      "energy_after": 10.564176407847658,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "service",
+      "start": 1.434856983291366,
+      "end": 1.934856983291366,
+      "origin": 3,
+      "destination": 3,
+      "energy_before": 8.82571508354317,
+      "energy_after": 8.82571508354317,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 1.4387412038839846,
+      "end": 1.5,
+      "origin": 2,
+      "destination": 2,
+      "energy_before": 11.722960647246744,
+      "energy_after": 11.722960647246744,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 1.5,
+      "end": 1.7388745748295535,
+      "origin": 2,
+      "destination": 5,
+      "energy_before": 11.722960647246744,
+      "energy_after": 10.528587773098977,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 1.5871647184304685,
+      "end": 1.6666666666666665,
+      "origin": 9,
+      "destination": 9,
+      "energy_before": 10.564176407847658,
+      "energy_after": 10.564176407847658,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 1.6666666666666665,
+      "end": 2.610012971053343,
+      "origin": 9,
+      "destination": 4,
+      "energy_before": 10.564176407847658,
+      "energy_after": 5.847444885914275,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "service",
+      "start": 1.7388745748295535,
+      "end": 2.2388745748295538,
+      "origin": 5,
+      "destination": 5,
+      "energy_before": 10.528587773098977,
+      "energy_after": 10.528587773098977,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 1.934856983291366,
+      "end": 2.0,
+      "origin": 3,
+      "destination": 3,
+      "energy_before": 8.82571508354317,
+      "energy_after": 8.82571508354317,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 2.0,
+      "end": 3.2836592470355987,
+      "origin": 3,
+      "destination": 12,
+      "energy_before": 8.82571508354317,
+      "energy_after": 2.407418848365176,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 2,
+      "kind": "wait",
+      "start": 2.2388745748295538,
+      "end": 2.25,
+      "origin": 5,
+      "destination": 5,
+      "energy_before": 10.528587773098977,
+      "energy_after": 10.528587773098977,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 2,
+      "kind": "drive",
+      "start": 2.25,
+      "end": 3.1679819238416407,
+      "origin": 5,
+      "destination": 0,
+      "energy_before": 10.528587773098977,
+      "energy_after": 5.9386781538907725,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 3,
+      "kind": "wait",
+      "start": 2.4886702380100982,
+      "end": 2.5,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 3.973315476616177,
+      "energy_after": 3.973315476616177,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 3,
+      "kind": "charge",
+      "start": 2.5,
+      "end": 2.7806671130845957,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 3.973315476616177,
+      "energy_after": 14.4,
+      "electricity": 2.6066711308459567,
+      "deep_charge": 1,
+      "deep_discharge": 0,
+      "allocated_kw": 40.0,
+      "power_segments": [
+        [
+          2.5,
+          2.7406671130845957,
+          40.0
+        ],
+        [
+          2.7406671130845957,
+          2.7806671130845957,
+          20.000000000000014
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "service",
+      "start": 2.610012971053343,
+      "end": 3.110012971053343,
+      "origin": 4,
+      "destination": 4,
+      "energy_before": 5.847444885914275,
+      "energy_after": 5.847444885914275,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 3,
+      "kind": "wait",
+      "start": 2.7806671130845957,
+      "end": 2.833333333333333,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 14.4,
+      "energy_after": 14.4,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 3,
+      "kind": "drive",
+      "start": 2.833333333333333,
+      "end": 3.753349807370619,
+      "origin": 12,
+      "destination": 1,
+      "energy_before": 14.4,
+      "energy_after": 9.79991762981357,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 3.110012971053343,
+      "end": 3.1666666666666665,
+      "origin": 4,
+      "destination": 4,
+      "energy_before": 5.847444885914275,
+      "energy_after": 5.847444885914275,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 3.1666666666666665,
+      "end": 3.743185584396172,
+      "origin": 4,
+      "destination": 11,
+      "energy_before": 5.847444885914275,
+      "energy_after": 2.964850297266748,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 3.2836592470355987,
+      "end": 3.333333333333333,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 2.407418848365176,
+      "energy_after": 2.407418848365176,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "charge",
+      "start": 3.333333333333333,
+      "end": 3.6931478621242038,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 2.407418848365176,
+      "energy_after": 15.200000000000001,
+      "electricity": 3.1981452879087073,
+      "deep_charge": 1,
+      "deep_discharge": 0,
+      "allocated_kw": 40.0,
+      "power_segments": [
+        [
+          3.333333333333333,
+          3.6131478621242037,
+          40.0
+        ],
+        [
+          3.6131478621242037,
+          3.6931478621242038,
+          20.000000000000014
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 3.6931478621242038,
+      "end": 3.75,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 15.200000000000001,
+      "energy_after": 15.200000000000001,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 3.743185584396172,
+      "end": 3.75,
+      "origin": 11,
+      "destination": 11,
+      "energy_before": 2.964850297266748,
+      "energy_after": 2.964850297266748,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "charge",
+      "start": 3.75,
+      "end": 3.9558787425683315,
+      "origin": 11,
+      "destination": 11,
+      "energy_before": 2.964850297266748,
+      "energy_after": 11.200000000000001,
+      "electricity": 2.058787425683315,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 40.0,
+      "power_segments": [
+        [
+          3.75,
+          3.9558787425683315,
+          40.0
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 3.75,
+      "end": 5.226325887126551,
+      "origin": 12,
+      "destination": 6,
+      "energy_before": 15.200000000000001,
+      "energy_after": 7.818370564367243,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 3,
+      "kind": "service",
+      "start": 3.753349807370619,
+      "end": 4.253349807370618,
+      "origin": 1,
+      "destination": 1,
+      "energy_before": 9.79991762981357,
+      "energy_after": 9.79991762981357,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 3.9558787425683315,
+      "end": 4.0,
+      "origin": 11,
+      "destination": 11,
+      "energy_before": 11.200000000000001,
+      "energy_after": 11.200000000000001,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 4.0,
+      "end": 5.207899519827705,
+      "origin": 11,
+      "destination": 7,
+      "energy_before": 11.200000000000001,
+      "energy_after": 5.160502400861477,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 3,
+      "kind": "wait",
+      "start": 4.253349807370618,
+      "end": 4.333333333333333,
+      "origin": 1,
+      "destination": 1,
+      "energy_before": 9.79991762981357,
+      "energy_after": 9.79991762981357,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 3,
+      "kind": "drive",
+      "start": 4.333333333333333,
+      "end": 6.134282753083927,
+      "origin": 1,
+      "destination": 0,
+      "energy_before": 9.79991762981357,
+      "energy_after": 0.7951705310606023,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 1,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "service",
+      "start": 5.207899519827705,
+      "end": 5.707899519827705,
+      "origin": 7,
+      "destination": 7,
+      "energy_before": 5.160502400861477,
+      "energy_after": 5.160502400861477,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "service",
+      "start": 5.226325887126551,
+      "end": 5.726325887126551,
+      "origin": 6,
+      "destination": 6,
+      "energy_before": 7.818370564367243,
+      "energy_after": 7.818370564367243,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 5.707899519827705,
+      "end": 5.75,
+      "origin": 7,
+      "destination": 7,
+      "energy_before": 5.160502400861477,
+      "energy_after": 5.160502400861477,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 5.726325887126551,
+      "end": 5.75,
+      "origin": 6,
+      "destination": 6,
+      "energy_before": 7.818370564367243,
+      "energy_after": 7.818370564367243,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 5.75,
+      "end": 6.021916002655232,
+      "origin": 7,
+      "destination": 8,
+      "energy_before": 5.160502400861477,
+      "energy_after": 3.8009223875853193,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 5.75,
+      "end": 7.226325887126551,
+      "origin": 6,
+      "destination": 12,
+      "energy_before": 7.818370564367243,
+      "energy_after": 0.4367411287344858,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 1,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "service",
+      "start": 6.021916002655232,
+      "end": 6.521916002655232,
+      "origin": 8,
+      "destination": 8,
+      "energy_before": 3.8009223875853193,
+      "energy_after": 3.8009223875853193,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 0,
+      "kind": "wait",
+      "start": 6.521916002655232,
+      "end": 6.583333333333333,
+      "origin": 8,
+      "destination": 8,
+      "energy_before": 3.8009223875853193,
+      "energy_after": 3.8009223875853193,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 0,
+      "kind": "drive",
+      "start": 6.583333333333333,
+      "end": 7.1136154516439545,
+      "origin": 8,
+      "destination": 0,
+      "energy_before": 3.8009223875853193,
+      "energy_after": 1.149511796032212,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 1,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 7.226325887126551,
+      "end": 7.25,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 0.4367411287344858,
+      "energy_after": 0.4367411287344858,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "charge",
+      "start": 7.25,
+      "end": 7.559081471781638,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 0.4367411287344858,
+      "energy_after": 12.8,
+      "electricity": 5.5634664920694785,
+      "deep_charge": 1,
+      "deep_discharge": 0,
+      "allocated_kw": 40.0,
+      "power_segments": [
+        [
+          7.25,
+          7.559081471781638,
+          40.0
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "vehicle": 1,
+      "kind": "wait",
+      "start": 7.559081471781638,
+      "end": 7.583333333333333,
+      "origin": 12,
+      "destination": 12,
+      "energy_before": 12.8,
+      "energy_after": 12.8,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 0,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": "time_grid_alignment"
+    },
+    {
+      "vehicle": 1,
+      "kind": "drive",
+      "start": 7.583333333333333,
+      "end": 9.988670238010098,
+      "origin": 12,
+      "destination": 0,
+      "energy_before": 12.8,
+      "energy_after": 0.7733154766161778,
+      "electricity": 0.0,
+      "deep_charge": 0,
+      "deep_discharge": 1,
+      "allocated_kw": 0.0,
+      "power_segments": [],
+      "note": ""
+    }
+  ],
+  "decisions": [
+    {
+      "time": 0.0,
+      "known_customers": [
+        3,
+        4,
+        6,
+        8,
+        9
+      ],
+      "locked_customers": [],
+      "new_customers": [
+        3,
+        4,
+        6,
+        8,
+        9
+      ],
+      "pending_customers": [
+        3,
+        4,
+        6,
+        8,
+        9
+      ],
+      "unassigned": [],
+      "F_remaining": 17.55611976169845,
+      "runtime_seconds": 0.5720504989999426,
+      "evaluations": 36,
+      "diagnostics": {
+        "dp_calls": 76,
+        "dp_statuses": {
+          "optimal_discrete": 70,
+          "no_path_in_discrete_graph": 6
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "greedy",
+          "F_remaining": 1.1666666666666665,
+          "unassigned": 4
+        },
+        {
+          "step": 1,
+          "phase": "greedy",
+          "F_remaining": 2.6666666666666665,
+          "unassigned": 3
+        },
+        {
+          "step": 2,
+          "phase": "greedy",
+          "F_remaining": 5.786666666666667,
+          "unassigned": 2
+        },
+        {
+          "step": 3,
+          "phase": "greedy",
+          "F_remaining": 14.855150200660121,
+          "unassigned": 1
+        },
+        {
+          "step": 4,
+          "phase": "greedy",
+          "F_remaining": 17.55611976169845,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.052145,
+      "known_customers": [
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+      ],
+      "locked_customers": [
+        3,
+        9
+      ],
+      "new_customers": [
+        2
+      ],
+      "pending_customers": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "unassigned": [],
+      "F_remaining": 16.898619726643282,
+      "runtime_seconds": 0.10599330600007306,
+      "evaluations": 9,
+      "diagnostics": {
+        "dp_calls": 20,
+        "dp_statuses": {
+          "optimal_discrete": 15,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "greedy",
+          "F_remaining": 16.898619726643282,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.070629,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+      ],
+      "locked_customers": [
+        3,
+        9
+      ],
+      "new_customers": [
+        1
+      ],
+      "pending_customers": [
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "unassigned": [],
+      "F_remaining": 23.525470399230404,
+      "runtime_seconds": 0.11816265200013731,
+      "evaluations": 10,
+      "diagnostics": {
+        "dp_calls": 22,
+        "dp_statuses": {
+          "optimal_discrete": 15,
+          "no_path_in_discrete_graph": 7
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "greedy",
+          "F_remaining": 23.525470399230404,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.273138,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+      ],
+      "locked_customers": [
+        2,
+        3,
+        9
+      ],
+      "new_customers": [
+        7
+      ],
+      "pending_customers": [
+        1,
+        4,
+        6,
+        7,
+        8
+      ],
+      "unassigned": [],
+      "F_remaining": 20.78868795733632,
+      "runtime_seconds": 0.15623861699987174,
+      "evaluations": 10,
+      "diagnostics": {
+        "dp_calls": 27,
+        "dp_statuses": {
+          "optimal_discrete": 24,
+          "no_path_in_discrete_graph": 3
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "greedy",
+          "F_remaining": 20.78868795733632,
+          "unassigned": 0
+        }
+      ]
+    },
+    {
+      "time": 0.295656,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        3,
+        9
+      ],
+      "new_customers": [
+        10
+      ],
+      "pending_customers": [
+        1,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 20.78868795733632,
+      "runtime_seconds": 0.23050974099987798,
+      "evaluations": 11,
+      "diagnostics": {
+        "dp_calls": 23,
+        "dp_statuses": {
+          "optimal_discrete": 13,
+          "no_path_in_discrete_graph": 10
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 0.370593,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        3,
+        9
+      ],
+      "new_customers": [
+        5
+      ],
+      "pending_customers": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 21.122021290669654,
+      "runtime_seconds": 0.2794698059997245,
+      "evaluations": 21,
+      "diagnostics": {
+        "dp_calls": 33,
+        "dp_statuses": {
+          "optimal_discrete": 15,
+          "no_path_in_discrete_graph": 18
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": [
+        {
+          "step": 0,
+          "phase": "greedy",
+          "F_remaining": 21.122021290669654,
+          "unassigned": 1
+        }
+      ]
+    },
+    {
+      "time": 0.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        3,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 21.122021290669654,
+      "runtime_seconds": 0.18018089699990014,
+      "evaluations": 12,
+      "diagnostics": {
+        "dp_calls": 24,
+        "dp_statuses": {
+          "optimal_discrete": 13,
+          "no_path_in_discrete_graph": 11
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 1.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        3,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 21.122021290669654,
+      "runtime_seconds": 0.16616316999989067,
+      "evaluations": 12,
+      "diagnostics": {
+        "dp_calls": 24,
+        "dp_statuses": {
+          "optimal_discrete": 13,
+          "no_path_in_discrete_graph": 11
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 1.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        3,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 21.06076249455364,
+      "runtime_seconds": 0.15468264499986617,
+      "evaluations": 12,
+      "diagnostics": {
+        "dp_calls": 24,
+        "dp_statuses": {
+          "optimal_discrete": 13,
+          "no_path_in_discrete_graph": 11
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 2.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        3,
+        4,
+        5,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        1,
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 19.733896650392573,
+      "runtime_seconds": 0.14588959399998203,
+      "evaluations": 10,
+      "diagnostics": {
+        "dp_calls": 22,
+        "dp_statuses": {
+          "optimal_discrete": 13,
+          "no_path_in_discrete_graph": 9
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 2.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        2,
+        3,
+        4,
+        5,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        1,
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 17.42778221619663,
+      "runtime_seconds": 0.10760950799976854,
+      "evaluations": 10,
+      "diagnostics": {
+        "dp_calls": 22,
+        "dp_statuses": {
+          "optimal_discrete": 13,
+          "no_path_in_discrete_graph": 9
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": []
+    },
+    {
+      "time": 3.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 15.232431069572222,
+      "runtime_seconds": 0.07012113399969166,
+      "evaluations": 9,
+      "diagnostics": {
+        "dp_calls": 20,
+        "dp_statuses": {
+          "optimal_discrete": 12,
+          "no_path_in_discrete_graph": 8
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": []
+    },
+    {
+      "time": 3.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        6,
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 13.070326254768176,
+      "runtime_seconds": 0.007316064999940863,
+      "evaluations": 9,
+      "diagnostics": {
+        "dp_calls": 20,
+        "dp_statuses": {
+          "optimal_discrete": 12,
+          "no_path_in_discrete_graph": 8
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 4.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        7,
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 10.662697586457007,
+      "runtime_seconds": 0.0036841760002062074,
+      "evaluations": 8,
+      "diagnostics": {
+        "dp_calls": 15,
+        "dp_statuses": {
+          "optimal_discrete": 8,
+          "no_path_in_discrete_graph": 7
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 4.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 7.421481207333255,
+      "runtime_seconds": 0.0006250370001907868,
+      "evaluations": 7,
+      "diagnostics": {
+        "dp_calls": 14,
+        "dp_statuses": {
+          "optimal_discrete": 8,
+          "no_path_in_discrete_graph": 6
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": []
+    },
+    {
+      "time": 5.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 7.421481207333255,
+      "runtime_seconds": 0.000630054999874119,
+      "evaluations": 7,
+      "diagnostics": {
+        "dp_calls": 14,
+        "dp_statuses": {
+          "optimal_discrete": 8,
+          "no_path_in_discrete_graph": 6
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 5.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        8,
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 7.421481207333255,
+      "runtime_seconds": 0.0005679529999724764,
+      "evaluations": 7,
+      "diagnostics": {
+        "dp_calls": 14,
+        "dp_statuses": {
+          "optimal_discrete": 8,
+          "no_path_in_discrete_graph": 6
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 6.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 5.487464724505727,
+      "runtime_seconds": 0.0007617179999215296,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 13,
+        "dp_statuses": {
+          "optimal_discrete": 8,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 6.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 5.487464724505727,
+      "runtime_seconds": 0.0007005980000940326,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 13,
+        "dp_statuses": {
+          "optimal_discrete": 8,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 7.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 4.722714060494292,
+      "runtime_seconds": 0.0006535289999192173,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 13,
+        "dp_statuses": {
+          "optimal_discrete": 8,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": []
+    },
+    {
+      "time": 7.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 2.5609185282183624,
+      "runtime_seconds": 0.0002160569997613493,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 10,
+        "dp_statuses": {
+          "optimal_discrete": 5,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 8.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 0.0,
+      "runtime_seconds": 0.0001393450002069585,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 10,
+        "dp_statuses": {
+          "optimal_discrete": 5,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": false,
+      "history": []
+    },
+    {
+      "time": 8.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 0,
+      "runtime_seconds": 0.00013811200005875435,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 10,
+        "dp_statuses": {
+          "optimal_discrete": 5,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 9.0,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 0,
+      "runtime_seconds": 0.00013489799994204077,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 10,
+        "dp_statuses": {
+          "optimal_discrete": 5,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    },
+    {
+      "time": 9.5,
+      "known_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "locked_customers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "new_customers": [],
+      "pending_customers": [
+        10
+      ],
+      "unassigned": [
+        10
+      ],
+      "F_remaining": 0,
+      "runtime_seconds": 0.0001310630000261881,
+      "evaluations": 6,
+      "diagnostics": {
+        "dp_calls": 10,
+        "dp_statuses": {
+          "optimal_discrete": 5,
+          "no_path_in_discrete_graph": 5
+        },
+        "deadline_reached": false
+      },
+      "kept_previous_plan": true,
+      "history": []
+    }
+  ],
+  "metrics": {
+    "travel_hours": 19.83219965828353,
+    "wait_hours": 0.7941348520706549,
+    "charge_hours": 1.1554418562254356,
+    "service_hours": 4.5,
+    "T_total": 21.78177636657962,
+    "C_electricity": 13.427070336507457,
+    "N_deep_charge": 3,
+    "N_deep_discharge": 4,
+    "D_battery_degradation": 4.800000000000001,
+    "F": 26.76989746753186,
+    "makespan_hours": 9.988670238010098,
+    "served": 9,
+    "total_customers": 10,
+    "unserved": [
+      10
+    ],
+    "complete": false,
+    "runtime_seconds": 2.3038401720000365,
+    "solver_seconds": 2.302770174998841,
+    "replans": 25,
+    "max_replan_seconds": 0.5720504989999426,
+    "objective_valid": false
+  },
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "checked_actions": 49,
+    "served_once": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  }
+}

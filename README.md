@@ -1,273 +1,416 @@
-# EVRP thời gian thực: GA + VNS bằng Python
+# EVRP thời gian thực — Montoya 2017
 
-Bản cài đặt nhỏ, chạy lại được, cho bài toán điều độ xe giao hàng điện (Electric Vehicle
-Routing Problem, EVRP) khi đơn mới xuất hiện dần. Dự án so sánh ba phương pháp `greedy`,
-`ga` và `ga_vns` trên bộ benchmark chuẩn, tối ưu đồng thời ba mục tiêu: thời gian vận hành,
-chi phí điện và chỉ số hao mòn pin (đại diện). Dữ liệu gốc là bộ **Montoya et al., E-VRP-NL**;
-thuật toán chỉ dùng thư viện chuẩn Python.
+Dự án Python so sánh **Greedy + DP** với **GA + VNS + DP** cho điều độ xe giao hàng
+điện có đơn hàng xuất hiện trong ngày, sạc phi tuyến, giới hạn công suất trạm và
+giá điện TOU. Giao diện Streamlit phát lại nhật ký thực hiện của các xe.
 
----
+Hàm mục tiêu giữ nguyên yêu cầu, **không chuẩn hóa tự động**:
 
-## 1. Bộ dữ liệu (dataset)
+$$\min F=w_1T_{total}+w_2C_{electricity}+w_3D_{battery\_degradation}.$$
 
-### 1.1. Nguồn
+## 1. Chạy dự án
 
-- Bộ dữ liệu: **Montoya et al. (2016), "Instances for the Electric Vehicle Routing Problem
-  with Non-linear Charging Functions" (E-VRP-NL)**.
-- Gồm **120 instance XML**, công bố tại VRP-REP:
-  <https://www.vrp-rep.org/datasets/item/2016-0020.html>.
-- Bản ZIP chính thức tải trực tiếp:
-  <https://www.vrp-rep.org/datasets/download/montoya-et-al-2017.zip>.
-- Dự án đặt ZIP tại `data/raw/montoya-et-al-2017.zip` và **đọc trực tiếp từng XML trong ZIP**,
-  không chỉnh sửa dữ liệu benchmark.
+Yêu cầu **Python 3.10+**. Chạy các lệnh từ thư mục chứa `app.py` và `pyproject.toml`.
 
-### 1.2. Quy ước đặt tên
+```bash
+python -m venv .venv
+# Linux/macOS:
+source .venv/bin/activate
+# Windows PowerShell: .venv\Scripts\Activate.ps1
 
-Mỗi instance có tên `tcAcBsCcDE`, trong đó:
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
+```
+
+Mở địa chỉ mà Streamlit in ra, mặc định `http://localhost:8501`.
+Không cần API key, cơ sở dữ liệu hay dịch vụ bản đồ.
+
+**Đặt các XML của bạn vào `data/montoya-et-al-2017/`.** Bộ đọc tìm cả thư mục con;
+không yêu cầu đổi tên file hoặc chuyển chúng sang CSV. Archive mã nguồn không
+đóng gói lại dataset Montoya. Nếu chưa có dataset, chọn demo trong giao diện.
+
+```bash
+# Xem các instances và kiểm tra định dạng XML
+python -m evrp list
+
+# Chạy hai phương pháp trên cùng instance và cùng luồng sự kiện
+python -m evrp run --instance tc0c10s2cf1 --algorithm both --config configs/default.json --seed 42 --output results/my_run
+
+# Chạy nhanh bằng dữ liệu giả lập có sẵn; đây KHÔNG phải Montoya
+python -m evrp run --demo --config configs/demo.json --output results/demo
+
+# Benchmark nhiều lần
+python -m evrp benchmark --instances tc0c10s2cf1 tc2c10s2ct0 --config configs/benchmark_quick.json --seeds 42 43 --output results/benchmark
+
+# Hoặc lấy 3 instances đầu tiên có không quá 20 khách hàng
+python -m evrp benchmark --max-customers 20 --limit 3 --seeds 42 43 44
+
+# Dataset ở vị trí khác
+python -m evrp run --data /path/to/montoya-et-al-2017 --instance tc0c10s2cf1
+```
+
+`--instance` nhận tên instance hoặc đường dẫn XML. Khi dùng nhiều file cùng tên
+trong các thư mục con, cung cấp đường dẫn cụ thể để tránh chọn nhầm.
+Lõi thuật toán và CLI chỉ sử dụng thư viện chuẩn; các dependency trong
+`requirements.txt` phục vụ giao diện và biểu đồ.
+
+## 2. Cấu trúc thư mục
+
+| Đường dẫn | Trách nhiệm |
+|---|---|
+| `app.py` | Giao diện Streamlit, cấu hình, phát lại, xuất kết quả |
+| `evrp/domain.py` | Node, Instance, VehicleState, Action, RoutePlan, Solution |
+| `evrp/config.py` | Cấu hình và kiểm tra dữ liệu nhập |
+| `evrp/scenario.py` | Sinh thời điểm xuất hiện đơn hàng bằng seed |
+| `evrp/io/montoya.py` | Đọc XML Montoya, hỗ trợ namespace và đổi đơn vị |
+| `evrp/io/results.py` | Xuất JSON, CSV so sánh và thống kê |
+| `evrp/charging/model.py` | Sạc phi tuyến, đếm sự kiện hao pin |
+| `evrp/charging/tariff.py` | Tích phân chi phí điện qua các khung TOU |
+| `evrp/charging/calendar.py` | Lịch đặt chỗ, số cổng và tổng công suất |
+| `evrp/algorithms/charging_dp.py` | DP cho chiến lược sạc với thứ tự khách hàng cố định |
+| `evrp/algorithms/evaluator.py` | Bộ đánh giá đội xe chung, lập lịch theo ưu tiên ID xe |
+| `evrp/algorithms/greedy.py` | Baseline chèn đơn tham lam |
+| `evrp/algorithms/ga_vns.py` | GA, lai ghép OX, đột biến, VNS |
+| `evrp/simulation/engine.py` | Mô phỏng online, cam kết hành động đang thực hiện |
+| `evrp/validation.py` | Kiểm tra độc lập nhật ký thực hiện |
+| `evrp/visualization.py` | Lộ trình, SoC, công suất và timeline bằng Plotly |
+| `configs/` | Các kịch bản JSON tái lập được |
+| `tests/` | Kiểm thử dữ liệu, sạc, TOU, thuật toán, mô phỏng, giao diện |
+| `docs/` | Kết quả benchmark mẫu và ghi chú thí nghiệm |
+| `data/demo.xml` | Fixture giả lập có 6 khách hàng, 2 trạm |
+| `data/montoya-et-al-2017/` | Dataset XML bạn cung cấp |
+| `results/` | Đầu ra các lượt chạy |
+
+## 3. Dataset và giả định bổ sung
+
+Montoya 2017 có sạc **phi tuyến**, biểu diễn bằng các đoạn tuyến tính của hàm
+năng lượng tích lũy theo thời gian. Bộ gốc không có đơn hàng động, TOU, giới hạn
+công suất tổng trạm hoặc mô hình chi phí hao pin được dùng trong dự án này.
+
+Reader đọc các trường:
+
+- `node type="0/1/2"`: depot / khách hàng / trạm sạc; `cx`, `cy`: tọa độ.
+- `requests/request`: khách hàng và `service_time`.
+- `vehicle_profile`: depot, `speed_factor`, `max_travel_time`.
+- `custom`: `battery_capacity`, `consumption_rate`, `charging_functions`.
+- `node/custom/cs_type`: loại đường cong của trạm.
+
+**Đơn vị Montoya gốc:** Wh, Wh/km, giờ và km/h. Reader đổi năng lượng sang kWh,
+không đoán đơn vị từ độ lớn con số. Với XML đã chuyển sang kWh, chọn
+`--energy-unit kWh` hoặc đổi tùy chọn trong giao diện. Bộ gốc có pin 16 kWh,
+tốc độ 40 km/h và mức tiêu thụ 0.125 kWh/km; reader đọc từ XML, không hardcode.
+
+Tọa độ sử dụng để tính khoảng cách Euclidean và vẽ mặt phẳng km, không phải
+kinh độ/vĩ độ. Một loại xe đồng nhất, một depot; mỗi xe có thể thực hiện nhiều
+chuyến trong ngày. Pin ban đầu đầy. Không thêm tải trọng, giao thông, nhiệt độ,
+phụ tải HVAC hoặc cửa sổ giao hàng ngoài thời hạn hoạt động chung của XML.
+
+Các tham số đội xe, trạm, giá điện, hao pin và thời điểm phát sinh đơn là
+**giả lập**, được lưu trong cấu hình. Giá điện và hao pin dùng cùng một đơn vị
+tiền giả lập, không đại diện biểu giá điện Việt Nam hay giá thay pin thực tế.
+Hiệu suất sạc được giả định bằng 1; không có sạc tại depot và không có V2G.
+
+`dynamic_fraction` chọn tỷ lệ khách hàng có release > 0. Các release được sinh
+đều trong `(0, release_until_fraction × horizon]` với seed. Có thể không phục vụ
+hết đơn nếu release quá muộn, số xe ít hoặc các giới hạn tìm kiếm quá chặt.
+Generator không bảo đảm mọi kịch bản khả thi: nhật ký luôn giữ danh sách đơn
+chưa phục vụ, không xóa đơn hoặc nới thời hạn để tạo kết quả tốt.
+
+## 4. Mô hình toán học
+
+### 4.1. Tập, tham số và biến
 
 | Ký hiệu | Ý nghĩa |
 |---|---|
-| `A` | Cách đặt khách: `0` phân bố đều, `1` thành cụm, `2` hỗn hợp |
-| `B` | Số khách hàng |
-| `C` | Số trạm sạc (charging station, CS) |
-| `D` | Cách đặt trạm: `t` theo heuristic p-median, `f` ngẫu nhiên |
-| `E` | Chỉ số instance cho mỗi tổ hợp tham số (`0`–`4`) |
+| $I,S,V$, $0$ | Khách hàng, trạm, xe, depot |
+| $H$ | Thời hạn hoạt động, lấy từ `max_travel_time` |
+| $r_i,g_i$ | Thời điểm đơn i xuất hiện và thời gian phục vụ |
+| $d_{ij},t_{ij},e_{ij}$ | Khoảng cách, thời gian, năng lượng di chuyển |
+| $Q,q_v(t)$ | Dung lượng pin và năng lượng pin hiện tại |
+| $m_s,G_s,P_s^{port}$ | Số cổng, công suất tổng, công suất mỗi cổng |
+| $\pi(t)$ | Giá điện theo giờ trong ngày, lặp lại mỗi 24 giờ |
+| $x_{vij}$ | Xe v sử dụng chặng i → j; các lần ghé được phân biệt trong nhật ký |
+| $b_{vk},a_{vk}$ | Bắt đầu và kết thúc hành động k của xe v |
+| $q^-_{vk},q^+_{vk}$ | Năng lượng trước/sau hành động |
+| $u_{vk},p_{vk}(t)$ | Công suất được đặt chỗ và công suất thực tế khi sạc |
 
-Ví dụ `tc0c10s2cf1` = khách phân bố đều, 10 khách, 2 trạm sạc đặt ngẫu nhiên, instance số 1.
+$$d_{ij}=\sqrt{(x_i-x_j)^2+(y_i-y_j)^2},\quad
+t_{ij}=d_{ij}/speed,\quad e_{ij}=consumption\times d_{ij}.$$
 
-### 1.3. Thành phần một tệp XML
+Trong code, `routes` biểu diễn thứ tự khách hàng; `Action` biểu diễn các chặng,
+phiên sạc, chờ và phục vụ với mốc giờ và năng lượng cụ thể.
 
-Mỗi XML gồm ba khối:
+### 4.2. Thành phần thời gian
 
-- **`<network>/<nodes>`** — các nút mạng:
-  - `type=0`: kho (depot), `type=1`: khách hàng, `type=2`: trạm sạc;
-  - toạ độ `cx`, `cy` tính bằng **km**, khoảng cách Euclid chính xác tới 14 chữ số thập phân;
-  - nút trạm sạc có thẻ `<custom><cs_type>` nhận `slow`, `normal` hoặc `fast`.
-- **`<fleet>/<vehicle_profile>`** — một loại xe điện duy nhất cho cả 120 instance:
-  - `speed_factor`: tốc độ (km/h);
-  - `consumption_rate`: mức tiêu thụ năng lượng (Wh/km);
-  - `battery_capacity`: dung lượng pin (Wh);
-  - `max_travel_time`: giới hạn thời gian một tuyến (giờ);
-  - `charging_functions`: hàm sạc **phi tuyến** dạng đa đoạn cho từng `cs_type`,
-    mỗi điểm là cặp `(<battery_level> Wh, <charging_time> h)`.
-- **`<requests>/<request>`** — mỗi khách có một `service_time` (giờ).
+$$T_{total}=\sum_{v\in V}(T_v^{drive}+T_v^{wait}+T_v^{charge}).$$
 
-### 1.4. Ví dụ cụ thể: `tc0c10s2cf1`
+Chờ gồm xếp hàng trạm, chờ TOU, chờ đơn đã biết khi cần và thời gian căn lưới
+DP. **Thời gian phục vụ không cộng vào F** theo định nghĩa của đề bài, nhưng
+vẫn làm tiến đồng hồ xe và phải nằm trong H. Xe đỗ tại depot khi không có công
+việc được xem là ngoài ca, không cộng thời gian đỗ này vào chờ vận hành.
 
-| Thuộc tính | Giá trị |
-|---|---|
-| Toạ độ kho | (77.59, 78.35) km |
-| Khách hàng | 10 (node 1–10), mỗi khách `service_time = 0.5` h |
-| Trạm sạc | 2 (node 11, 12), loại `fast` |
-| Pin tối đa | 16 000 Wh |
-| Tiêu thụ | 125 Wh/km |
-| Tốc độ | 40 km/h |
-| Thời gian tuyến tối đa | 10 h |
-| Đường cong sạc `fast` | (0 Wh, 0 h) → (13 600 Wh, 0.31 h) → (15 200 Wh, 0.39 h) → (16 000 Wh, 0.51 h) |
+`makespan_hours` được báo cáo riêng, không thay thế `T_total`.
 
-Đường cong cho thấy phần pin cuối (80 % → 100 %) sạc chậm hơn rõ rệt, đúng đặc trưng sạc
-phi tuyến mà bài toán yêu cầu.
+### 4.3. Sạc phi tuyến và TOU
 
-### 1.5. Chín instance dự án sử dụng
+Với breakpoint $(q_l,\tau_l)$ của đường cong sạc trạm:
 
-Dự án chọn **9 instance** đại diện cho 3 cách phân bố khách × số khách 10 / 20 / 40:
+$$P_l^{battery}=\frac{q_{l+1}-q_l}{\tau_{l+1}-\tau_l},\qquad
+p(t)=\min(P_l^{battery},u),\qquad
+\Delta t_l=\frac{\Delta q_l}{p(t)}.$$
 
-| Instance | Khách | Trạm | Loại đường cong sạc |
-|---|---:|---:|---|
-| `tc0c10s2cf1` | 10 | 2 | fast |
-| `tc1c10s2cf2` | 10 | 2 | fast, slow |
-| `tc2c10s2cf0` | 10 | 2 | normal, slow |
-| `tc0c20s3cf2` | 20 | 3 | fast |
-| `tc1c20s3cf1` | 20 | 3 | fast, slow |
-| `tc2c20s3cf0` | 20 | 3 | fast, normal |
-| `tc0c40s5cf0` | 40 | 5 | fast, normal, slow |
-| `tc1c40s5cf1` | 40 | 5 | normal, slow |
-| `tc2c40s5cf2` | 40 | 5 | normal, slow |
+Một hành động sạc có thể đi qua nhiều đoạn SoC. Công suất thực giảm khi vào
+đoạn taper của đường cong gốc; không dùng công thức sạc tuyến tính toàn miền.
 
-Tất cả dùng chung thông số xe: pin 16 000 Wh, tiêu thụ 125 Wh/km, tốc độ 40 km/h, tuyến tối đa 10 h.
+$$C_{electricity}=\sum_{v,s}\int_{v\text{ sạc tại }s}\pi(t)p_{v,s}(t)\,dt.$$
 
-### 1.6. Phần mở rộng mô phỏng (không có trong benchmark)
+Code tích phân riêng tại các điểm đổi công suất và khung TOU. Đơn vị:
+`kW × giờ × tiền/kWh`. Khung TOU là giờ đồng hồ, còn nhật ký dùng thời gian
+trôi qua từ đầu mô phỏng; `start_clock_hour` nối hai cách biểu diễn.
 
-Benchmark gốc chỉ mô tả bài toán **tĩnh** (mọi đơn biết trước) và không có giá điện. Dự án thêm
-các thành phần sau để minh hoạ EVRP **thời gian thực**; chúng được sinh từ seed và lưu cùng kết quả:
+### 4.4. Chi phí hao pin
 
-- **Thời điểm đơn xuất hiện** (`make_releases`): `dynamic_ratio` khách có mặt tại thời điểm 0,
-  phần còn lại sinh đều trong nửa đầu giới hạn thời gian tuyến.
-- **Giá điện theo khung giờ TOU**: đơn vị tương đối/kWh — giờ 0–2: **1**, giờ 2–5: **3**,
-  sau giờ 5: **1.5**; lặp lại mỗi 24 giờ. Chi phí một lần sạc được chia chính xác tại ranh giới giá.
-- **Chỉ số hao mòn pin** (đại diện): kWh sạc từ mức pin ≥ 80 % cộng kWh xả dưới 20 %.
-  Đây **không** phải mô hình tuổi thọ pin được hiệu chuẩn.
+$$D_{battery\_degradation}=c_{ch}N_{deep\_charge}+c_{dis}N_{deep\_discharge}.$$
 
----
+Quy tắc xấp xỉ được công bố rõ:
 
-## 2. Thuật toán
+$$deep\_charge_k=\mathbf{1}\left[(q^+_k-q^-_k)/Q\ge\theta_{ch}\right].$$
 
-### 2.1. Tên và ý tưởng
+Mặc định $\theta_{ch}=0.60$: một phiên nạp ít nhất 60% dung lượng được tính
+một lần sạc sâu. **Sạc sâu không phải sạc nhanh.** Một lần dừng ở trạm chỉ có
+một phiên sạc; không chia phiên đang thực hiện khi tái tối ưu để né chi phí.
 
-Thuật toán chính là **Genetic Algorithm kết hợp Variable Neighborhood Search (GA + VNS)**,
-đối chiếu với hai baseline:
+Xả cạn là một lần SoC đi từ trên/ngang $\theta_{low}$ xuống dưới ngưỡng đó.
+Trong cùng một đợt SoC thấp, các chặng tiếp theo không bị đếm lại. Chỉ kích
+hoạt lại bộ đếm sau khi sạc lên ít nhất $\theta_{reset}>\theta_{low}$.
+Mặc định các ngưỡng là 15% và 25%; SoC dự trữ tối thiểu là 2%.
 
-- `greedy` — chỉ dùng nghiệm tham lam (láng giềng gần nhất) làm nghiệm ban đầu;
-- `ga` — chỉ chạy tiến hoá, không có bước cải thiện VNS;
-- `ga_vns` — GA có VNS lắc và tìm kiếm cục bộ trên cá thể tốt nhất ở mỗi thế hệ.
+Đây là mô hình chi phí theo sự kiện phục vụ bài tập, không phải mô hình điện
+hóa dự báo SOH. Không tính hao pin của các hành động chưa thực hiện.
 
-### 2.2. Biểu diễn và bộ giải mã
+### 4.5. Ràng buộc
 
-- **Nhiễm sắc thể** là một **hoán vị các khách chưa giao** (thứ tự ghé thăm), không kèm thông tin
-  phân tuyến hay lịch sạc.
-- **`decode`** tách hoán vị thành các tuyến khả thi: ưu tiên xe đang có theo thời điểm sẵn sàng,
-  chỉ mở xe mới khi cần. Với mỗi khách, nếu thêm vào tuyến hiện tại không khả thi thì thử xe khác,
-  cuối cùng mới ghi vào `unserved`.
-- **`plan_route` → `go_to` → `station_path`** kiểm tra tính khả thi năng lượng: chèn các lần sạc
-  một phần cần thiết, chọn đường vòng qua trạm **ngắn nhất** (Dijkstra trên trạm), và giữ dự trữ
-  tối thiểu 10 % pin hoặc đủ để thoát khỏi khách tới kho/trạm gần nhất.
-- Sau khi rời kho, pin được coi là đầy; năng lượng nạp tại kho được tính chi phí theo giờ xuất phát
-  nhưng không thêm thời gian sạc (benchmark không có thông số này).
+1. Mỗi khách hàng được phục vụ một lần trong lời giải hoàn chỉnh; thời điểm
+   bắt đầu phục vụ $b_i\ge r_i$.
+2. Các hành động một xe liên tục về vị trí, năng lượng và không chồng thời
+   gian; xe xuất phát/kết thúc tại depot, kết thúc không muộn hơn H.
+3. Di chuyển cập nhật $q^+=q^--e_{ij}$; chờ/phục vụ giữ nguyên năng lượng.
+4. $Q\times reserve\_soc\le q_v(t)\le Q$; sạc chỉ ở trạm.
+5. Mỗi phiên sạc giữ một cổng suốt khoảng nửa mở $[b,a)$; không ngắt phiên.
+6. Giới hạn số cổng và công suất:
 
-### 2.3. Tham số GA
+$$\sum_v\mathbf{1}[v\text{ đang sạc tại }s,t]\le m_s,$$
+$$0<u_{vk}\le P_s^{port},\qquad
+\sum_{k:\,s(k)=s,\,b_k\le t<a_k}u_{vk}\le G_s.$$
 
-| Thành phần | Giá trị |
-|---|---|
-| Quần thể | 30 cá thể |
-| Số thế hệ tối đa | 40 |
-| Lai ghép | Order Crossover (OX), xác suất 80 % |
-| Đột biến | 20 % (một trong ba lân cận relocate / swap / reverse) |
-| Chọn lọc | Tournament kích thước 3 |
-| Elitism | Giữ 2 cá thể tốt nhất |
-| Cache | Lưu nghiệm đã giải mã theo thứ tự để tránh tính lặp |
+Trong triển khai, một phiên **đặt chỗ công suất cố định u**, còn công suất
+thực tế p(t) có thể giảm theo taper. Vì $p(t)\le u$, giới hạn công suất thực
+được bảo đảm. Phần công suất đặt chỗ nhưng chưa dùng không được tự động phân
+phối lại. Đây là chính sách bảo thủ, chưa phải tối ưu chia sẻ công suất liên
+tục toàn đội xe.
 
-### 2.4. VNS
+7. Tái tối ưu giữ nguyên các hành động đã hoàn thành và hành động đã bắt đầu,
+   cùng lịch đặt chỗ sạc tương ứng; chỉ thay đổi phần chưa cam kết.
 
-GA+VNS lấy cá thể tốt nhất và lắc theo bán kính `k = 0,1,2` tương ứng ba lân cận:
+## 5. Baseline: Greedy + DP
 
-1. `relocate` — chuyển một khách sang vị trí khác;
-2. `swap` — đổi chỗ hai khách;
-3. `reverse` — đảo một đoạn (2-opt trên thứ tự).
+### 5.1. Greedy khởi tạo và chèn đơn
 
-Sau mỗi lần lắc là một vòng leo đồi cục bộ nhỏ; nếu tìm được nghiệm tốt hơn thì quay lại `k = 0`,
-ngược lại tăng `k`. Số lần thử mỗi thế hệ bị chặn để tuân thủ ngân sách thời gian.
+Sắp xếp các đơn chưa được phân công theo release, khoảng cách đến depot và ID.
+Với từng đơn, thử các vị trí chèn trong các tuyến xe. Mỗi phương án được giải
+sạc và kiểm tra lịch trạm; chọn phương án khả thi có mức tăng F nhỏ nhất.
+Không chấp nhận việc làm mất các đơn đã được phân công để chèn đơn mới.
 
-### 2.5. Hàm mục tiêu
-
-Với mỗi lần lập lại tuyến, điểm của nghiệm là:
-
-```
-score = 10000 × (#đơn không giao được)
-      + 0.5 × thời_gian   / max(thời_gian_tham_lam, 1)
-      + 0.3 × chi_phí     / max(chi_phí_tham_lam, 1)
-      + 0.2 × hao_mòn     / max(hao_mòn_tham_lam, 1)
+```text
+solution ← đánh giá các tuyến hiện tại bằng FleetEvaluator
+for customer in các đơn chưa phân công:
+    candidates ← chèn customer tại từng vị trí của từng xe
+    với mỗi candidate: giải sạc DP + đặt chỗ trạm
+    giữ các candidate phục vụ customer và giữ toàn bộ đơn đã phân công
+    nếu có candidate hợp lệ: chọn candidate có F nhỏ nhất
+return solution cùng danh sách đơn chưa phân công
 ```
 
-Các đại lượng được chuẩn hoá theo chính nghiệm tham lam trong lần lập kế hoạch đó để cân bằng
-độ lớn giữa ba mục tiêu. Phạt `10000` mỗi đơn không giao đảm bảo ưu tiên phục vụ đủ đơn.
-Thời gian vận hành là tổng giờ lái, phục vụ và sạc; **không** cộng thời gian chờ đơn mới.
+### 5.2. DP cho thứ tự khách hàng cố định
 
-### 2.6. Mô phỏng trực tuyến
+"Fixed route" trong dự án nghĩa là **thứ tự khách hàng đã cố định**. Vẫn được
+chèn các trạm giữa khách hàng để quyết định sạc ở đâu và bao nhiêu.
 
-Tại mỗi thời điểm có đơn mới, thuật toán lập lại kế hoạch cho các đơn chưa giao: xe đang chạy
-**giữ nguyên chặng đang thực hiện** (`advance`), phần còn lại được tối ưu lại. Seed được lưu để
-tái lập. Ngân sách `--seconds` áp dụng **cho từng lần xuất hiện đơn** và là cố gắng tuân thủ:
-một thế hệ GA đang xử lý có thể làm thời gian thực vượt nhẹ.
+Trạng thái nhãn:
 
-### 2.7. Độ phức tạp
+$$z=(k,n,h,q,\ell,B,c).$$
 
-| Thành phần | Độ phức tạp |
+- k: khách hàng tiếp theo trong chuỗi cố định; n: node hiện tại.
+- h: chỉ số bước thời gian; q: năng lượng thực còn lại, không làm tròn xuống.
+- $\ell$: đang ở trong đợt SoC thấp hay không.
+- B: các trạm đã ghé trong khoảng giữa hai khách hàng.
+- c: đã sạc tại lần dừng hiện tại hay chưa.
+
+Hành động: đi tới khách hàng tiếp theo/depot; ghé trạm; chờ một bước tại trạm;
+sạc tới một SoC mục tiêu bằng một mức công suất đặt chỗ.
+
+Mức đích sạc gồm lưới `soc_step × Q`, toàn bộ breakpoint và Q. Mức u lấy từ
+`power_fractions × min(charger_kw, station_power_kw)`. Thời gian di chuyển,
+phục vụ và sạc là giá trị vật lý; sau mỗi chuyển trạng thái, thời gian được
+căn lên lưới bằng một hành động chờ có ghi nhận trong mục tiêu.
+
+$$g(z')=\min\{g(z')\,,\;g(z)+w_1\Delta T+w_2\Delta C+w_3\Delta D\}.$$
+
+Code dùng label-setting DP và hàng đợi A* với cận dưới khả chấp về di chuyển,
+năng lượng cần sạc, công suất nhanh nhất và giá thấp nhất. Nhãn đích đầu tiên
+tối ưu **trong đồ thị rời rạc đã quy định**, với lịch trạm bên ngoài cố định.
+
+Giới hạn mặc định:
+
+- Bước thời gian 5 phút; bước SoC mục tiêu 10%.
+- Xét tối đa 3 trạm có độ vòng đường nhỏ nhất tại mỗi trạng thái.
+- Tối đa 2 trạm giữa hai khách hàng; không lặp trạm trong cùng khoảng.
+- Không ghé trạm thuần túy để đi xuyên qua mà không sạc; mạng Euclidean cho
+  phép đi trực tiếp.
+- `max_labels=12000`, `dp_budget_seconds=0.8`.
+
+Các trạng thái kết thúc: `optimal_discrete`, `search_limit`,
+`no_path_in_discrete_graph`. **`search_limit` không chứng minh vô nghiệm.**
+`no_path_in_discrete_graph` chỉ kết luận trong đồ thị đã giới hạn, không phải
+toàn bài toán liên tục. Để mở rộng tìm kiếm, tăng thời gian, giảm bước lưới,
+đặt `candidate_stations=0` và `max_labels=0`, tăng `max_station_hops`.
+
+### 5.3. Ghép lịch sạc nhiều xe
+
+Giải các xe tuần tự theo ID tăng dần. DP của xe sau đọc lịch đặt chỗ đã chốt
+của xe trước và các phiên sạc đang thực hiện. Phương án thử dùng bản sao lịch,
+không ghi đè lịch mô phỏng nếu bị loại. Cache chỉ giữ kết quả tìm kiếm hoàn
+tất, không giữ timeout như một kết luận vô nghiệm.
+
+**DP không tối ưu toàn bộ đội xe cùng lúc.** Chính sách ưu tiên xe, giới hạn
+đồ thị và giới hạn thời gian áp dụng giống nhau cho hai phương pháp.
+
+## 6. GA + VNS + DP
+
+Chromosome có hai phần: hoán vị khách hàng và gene xe cho từng khách hàng.
+Decode lấy các khách hàng thuộc một xe theo thứ tự trong hoán vị.
+
+1. Khởi tạo bằng Greedy và các nghiệm biến đổi/ngẫu nhiên. Chi phí khởi tạo
+   tính trong ngân sách của GA; không được cấp thêm ngân sách miễn phí.
+2. Tournament chọn cha mẹ; order crossover OX giữ mỗi khách hàng đúng một lần.
+   Gene xe được lấy từ cha hoặc mẹ theo từng khách hàng.
+3. Đột biến hoán đổi thứ tự hoặc đổi xe được phân công.
+4. Decode bằng cùng FleetEvaluator và charging DP của baseline.
+5. VNS trên cá thể tốt: relocate, swap (cả trong/giữa tuyến), 2-opt trong tuyến.
+   Cải thiện thì quay lại neighborhood đầu tiên, nếu không thì đổi neighborhood.
+6. Giữ elite; dừng khi hết thế hệ hoặc ngân sách thời gian.
+
+```text
+incumbent ← Greedy trong một phần ngân sách
+population ← chromosome Greedy và các biến thể
+while còn thế hệ và thời gian:
+    sắp xếp population theo tính khả dụng, số đơn chưa phân công, F
+    cải thiện cá thể tốt bằng VNS
+    giữ elite
+    tournament → OX → mutation → DP decode
+    cập nhật incumbent
+return incumbent
+```
+
+Khi đang tìm nghiệm, nghiệm không thể đưa xe về depot bị xếp sau nghiệm khả
+dụng; sau đó ưu tiên phục vụ nhiều đơn hơn, rồi tối thiểu F. Đây là quy tắc
+khả thi để tìm lời giải, **không thêm một thành phần phạt vào hàm mục tiêu**.
+F của một lượt chưa phục vụ hết đơn không được dùng như F hợp lệ của toàn đề.
+
+GA + VNS chưa bảo đảm tìm nghiệm tối ưu hay luôn tốt hơn Greedy. Trong môi
+trường động, một quyết định tốt cho các đơn đã biết có thể bất lợi khi đơn
+mới xuất hiện; không dùng dữ liệu tương lai để né tình huống đó.
+
+## 7. Mô phỏng online
+
+Tại mỗi thời điểm release hoặc tick thử lại đơn tồn:
+
+1. Cam kết các hành động đã thực hiện và hành động đang chạy đến hết.
+2. Nếu đang đi đến khách hàng, cam kết luôn phần phục vụ ngay sau chặng đó.
+3. Giữ nguyên phiên sạc đang chạy, cập nhật trạng thái SoC thấp/sạc tại chỗ.
+4. Công bố các đơn có release không lớn hơn thời gian hiện tại.
+5. Solver chỉ nhận các đơn đã công bố và chưa nằm trong phần cam kết.
+6. Nếu có đơn mới hoặc tồn chưa phân công, tái tối ưu từ trạng thái neo của
+   mỗi xe; các xe đang chạy có trạng thái neo ở cuối hành động đã cam kết.
+7. Nếu phương án mới không tốt hơn/không khả dụng, giữ lịch cũ, đơn mới chờ
+   và được thử lại ở tick kế tiếp. Cuối ngày báo đầy đủ đơn chưa phục vụ.
+
+Đây là **mô phỏng ra quyết định online**, không phải kết nối GPS hoặc đơn hàng
+thật. Đồng hồ mô phỏng không tiến theo thời gian CPU; thời gian tính toán
+được ghi riêng tại mỗi lần tái tối ưu. Deadline dùng thời gian thực của máy;
+kiểm tra theo vòng lặp, nên có thể vượt vài mili giây do thao tác đang chạy.
+Kết quả có thể khác giữa máy khi deadline bị chạm, dù seed giống nhau.
+
+## 8. Giao diện
+
+- Chọn XML hoặc demo; chỉnh xe, đơn động, trạm, trọng số, ngưỡng hao pin và TOU.
+- Chạy từng phương pháp hoặc chạy cả hai với cùng scenario.
+- Hiển thị F, các thành phần thô, đóng góp có trọng số, số đơn đã phục vụ.
+- Phát/tạm dừng, chọn thời điểm, đổi tốc độ phát; vị trí xe được nội suy từ
+  nhật ký, SoC khi sạc được nội suy theo đúng các đoạn công suất.
+- Ẩn khách hàng chưa xuất hiện trong khung phát lại; hiển thị tuyến đã đi.
+- SoC, ngưỡng xả cạn, công suất thực và công suất đặt chỗ so với giới hạn trạm.
+- Timeline di chuyển/chờ/sạc/phục vụ, lịch sử tìm kiếm theo từng epoch.
+- Tải CSV và JSON. Các bảng/biểu đồ thống kê toàn lượt chạy là kết quả sau mô
+  phỏng, không phải thông tin được solver biết trước.
+
+## 9. Thí nghiệm và đọc kết quả
+
+| Cấu hình | Đặc điểm |
 |---|---|
-| Giải mã một nhiễm sắc thể (`decode`) | đa thức; chi phối bởi Dijkstra `station_path` trên `|S|` trạm cho từng chặng, xấp xỉ `O(n² · (|S|+1)² log(|S|+1))` với `n` khách |
-| GA | `O(E · decode)`, `E` = số nghiệm được đánh giá; bị chặn bởi ngân sách `seconds` |
-| Held–Karp (TSP chính xác, ≤ 15 khách) | thời gian `O(n² · 2ⁿ)`, bộ nhớ `O(n · 2ⁿ)` |
-| MST nhân đôi (Prim + DFS) | `O(V²)` cho `V = n + 1` nút |
+| `static.json` | Không có đơn động, giá cố định, trạm ít gây nghẽn |
+| `tou.json` | Tĩnh, có TOU, trạm ít gây nghẽn |
+| `limited_power.json` | Tĩnh, TOU, công suất tổng trạm 30 kW |
+| `default.json` | Động 50%, release trong 35% đầu ngày, TOU, công suất 40 kW |
+| `benchmark_quick.json` | Động 50%, release trong 5% đầu ngày; 5 giây/lần tái tối ưu |
+| `demo.json` | Fixture nhỏ, 3 xe, tổng công suất trạm 6 kW |
 
-### 2.8. Ngưỡng xấp xỉ cho trường hợp đặc biệt
+Số xe mặc định 5 là giả định thí nghiệm, không phải thông số đội xe của
+Montoya. Với instances 20–80 khách hàng, cần cấu hình đội xe phù hợp. Không
+so sánh F thấp do không phục vụ hết khách hàng với nghiệm hoàn chỉnh.
 
-Lệnh `proof` chứng minh **tỷ lệ xấp xỉ 2** cho một trường hợp đặc biệt: một xe, mọi đơn biết
-trước, không cần sạc và tối thiểu quãng đường Euclid (tức TSP metric tĩnh). Gọi `MST` là độ dài
-cây khung nhỏ nhất và `OPT` là hành trình tối ưu:
+Đầu ra:
 
-1. Một hành trình tối ưu, khi bỏ một cạnh, chứa một cây khung ⇒ `MST ≤ OPT`.
-2. Nhân đôi mọi cạnh của cây được một hành trình dài `2 × MST`.
-3. Đi tắt các đỉnh lặp không làm tăng độ dài nhờ bất đẳng thức tam giác ⇒ `ALG ≤ 2 × MST`.
+- `<instance>_<algorithm>_seed<seed>.json`: cấu hình, release, hành động, từng
+  quyết định, thời gian tính toán, kiểm tra tính đúng và metric.
+- `comparison.csv`: tất cả lượt chạy, kể cả chưa hoàn thành.
+- `statistics.csv`: tỷ lệ hoàn thành, số đơn trung bình; trung bình/độ lệch
+  chuẩn T/C/D/F **chỉ trên các lượt hoàn thành và đạt kiểm tra**.
 
-Vậy `ALG ≤ 2 × MST ≤ 2 × OPT`. Với instance 10 khách, nghiệm còn được đối chiếu với TSP tối ưu
-bằng quy hoạch động **Held–Karp**.
+`objective_valid=true` chỉ khi toàn bộ đơn được phục vụ và nhật ký hợp lệ.
+`F` vẫn được ghi cho công việc thực hiện trong lượt chưa hoàn thành để kiểm
+tra/debug; không dùng nó để kết luận thắng/thua. Khi tập lượt hoàn thành
+khác nhau giữa hai thuật toán, cần so sánh bổ sung trên **các seed cùng hoàn
+thành**; số liệu tổng hợp riêng mỗi thuật toán chưa phải kiểm định ghép cặp.
 
-> **Quan trọng:** bảo đảm tỷ lệ 2 **chỉ** áp dụng cho TSP tĩnh đặc biệt nêu trên. Không suy rộng
-> sang GA+VNS hoặc EVRP đầy đủ (nhiều xe, sạc phi tuyến, đơn động).
+Để so sánh khoa học: dùng cùng XML, seed sự kiện, cấu hình, deadline, chính
+sách lập lịch sạc, máy chạy và độ phân giải DP. Báo riêng tỷ lệ hoàn thành,
+F, T/C/D, số sự kiện hao pin và độ trễ tái tối ưu. Kết quả mẫu trong
+`docs/EXPERIMENTS.md` là kiểm tra chạy thực tế, không phải khẳng định thống kê.
 
-### 2.9. Kết quả benchmark
-
-Kết quả đầy đủ nằm trong `results/experiment/` (bảng `report.md`, `summary.csv` và các biểu đồ
-`runtime.png`, `evaluation_cost.png`, `objectives.png`). Cấu hình hiện có: **162 lượt chạy**
-= 9 instance × 6 kịch bản (một tĩnh + năm seed động) × 3 phương pháp, ngân sách **0.1 giây**
-mỗi lần tái lập tuyến. Dưới đây là trích đoạn kịch bản **50 % đơn động** (trung bình nhiều seed):
-
-| Khách | Phương pháp | Giao được | Giờ vận hành | Chi phí điện | Hao mòn (kWh) | Trung vị (s) | P95 (s) |
-|---:|---|---:|---:|---:|---:|---:|---:|
-| 10 | `greedy` | 10/10 | 46.55 | 342.53 | 62.08 | 0.000 | 0.000 |
-| 10 | `ga` | 10/10 | 30.60 | 195.97 | 38.92 | 0.020 | 0.038 |
-| 10 | `ga_vns` | 10/10 | 30.78 | 194.98 | 39.02 | 0.033 | 0.061 |
-| 20 | `greedy` | 20/20 | 74.95 | 552.61 | 99.10 | 0.001 | 0.001 |
-| 20 | `ga` | 20/20 | 55.74 | 360.80 | 69.95 | 0.095 | 0.105 |
-| 20 | `ga_vns` | 20/20 | 56.86 | 365.15 | 71.39 | 0.101 | 0.105 |
-| 40 | `greedy` | 40/40 | 163.65 | 1199.41 | 201.34 | 0.001 | 0.002 |
-| 40 | `ga` | 40/40 | 128.92 | 852.71 | 155.61 | 0.110 | 0.124 |
-| 40 | `ga_vns` | 40/40 | 129.33 | 867.37 | 155.83 | 0.104 | 0.119 |
-
-Nhận xét nhanh: GA cải thiện rõ so với tham lam trên cả ba mục tiêu (ví dụ 40 khách: giờ vận hành
-163.65 → 128.92, chi phí 1199 → 853). Với ngân sách 0.1 giây, `ga` và `ga_vns` gần tương đương;
-hiệu ứng của VNS cần kiểm chứng lại với ngân sách 2 giây. Thời gian lập tuyến phụ thuộc máy tính
-và ngân sách đã chọn, nên hãy chạy lại trên máy dùng để báo cáo.
-
----
-
-## 3. Cài đặt và chạy CLI
-
-Yêu cầu **Python 3.11+**. Thuật toán chỉ dùng thư viện chuẩn; vẽ biểu đồ cần `matplotlib`.
+## 10. Kiểm thử
 
 ```bash
-python -m pip install -r requirements.txt
-python -m unittest discover -s tests -v
-
-python -m evrp run --instance tc0c10s2cf1 --method ga_vns --seed 0 --dynamic-ratio 0.5
-python -m evrp proof --instance tc0c10s2cf1
+python -m pip install -e ".[dev]"
+python -m pytest -q
 ```
 
-Lệnh `run` ghi lịch xuất hiện đơn, tuyến xe, từng chặng di chuyển/sạc và số đo vào
-`results/run.json`. Ba phương pháp: `greedy`, `ga`, `ga_vns`.
+Kiểm thử kiểm tra đơn vị/namespace XML, dữ liệu lỗi, taper và giới hạn công
+suất, tích phân TOU qua nửa đêm, giới hạn cổng độc lập với kW, chờ giá rẻ,
+sạc một phần, timeout DP, tính toàn vẹn chromosome, đếm hao pin, không lộ
+release tương lai, giữ phiên sạc đang chạy, phát hiện nhật ký bị sửa và luồng
+chạy/seek trên Streamlit. Nếu có dữ liệu Montoya trong thư mục mặc định, test
+tích hợp đọc toàn bộ XML; khi chưa có dữ liệu này, test đó được skip.
 
-Chạy thí nghiệm trên 9 bài toán (3 phân bố × 10/20/40 khách), một kịch bản tĩnh và năm seed động:
+## 11. Nguồn tham khảo
 
-```bash
-python -m evrp experiment --seconds 2 --seeds 5
-python -m evrp report
-```
+- Montoya, A., Guéret, C., Mendoza, J.E., Villegas, J.G. (2017).
+  *The electric vehicle routing problem with nonlinear charging function*.
+  Transportation Research Part B, 103, 87–110.
+  https://doi.org/10.1016/j.trb.2017.02.004
+- Dataset gốc: https://www.vrp-rep.org/datasets/item/2016-0020.html
+- Định nghĩa benchmark E-VRP-NL và giới hạn cổng E-VRP-NL-C:
+  https://dimacs.rutgers.edu/programs/implementation-challenges/vehicle-routing/implementation-challenge-vehicle-routing/electric-vehicle-routing-problem
 
-Kiểm tra nhanh: `python -m evrp experiment --limit-instances 1 --seeds 1 --seconds 0.1`.
-Lệnh `experiment` tạo `summary.csv` và `scenarios.json`; lệnh `report` tạo `report.md` và các
-biểu đồ. CSV có thời gian trung vị/P95, số lần đánh giá nghiệm và ba mục tiêu để đánh giá độ phức
-tạp thực nghiệm. Biểu đồ `evaluation_cost.png` cho thấy chi phí đánh giá một nghiệm khi số khách
-tăng, tránh đọc nhầm đường thời gian bị chặn bởi ngân sách. Khi so sánh chất lượng, dùng cùng
-`scenarios.json`, seed và ngân sách cho cả ba phương pháp.
-
-Nếu thiếu ZIP, tải từ [trang benchmark](https://www.vrp-rep.org/datasets/item/2016-0020.html)
-hoặc [liên kết tải trực tiếp](https://www.vrp-rep.org/datasets/download/montoya-et-al-2017.zip)
-và đặt tại `data/raw/montoya-et-al-2017.zip`.
-
----
-
-## 4. Trang web trực quan
-
-Thư mục `web/` có giao diện Next.js và API FastAPI để phát lại tuyến xe, xem pin/sạc/giá điện,
-so sánh ba phương pháp và giải thích chứng minh xấp xỉ. Hướng dẫn khởi động chi tiết ở
-[web/README.md](web/README.md).
-
----
-
-## 5. Giới hạn cần nêu trong báo cáo
-
-Dữ liệu gốc không chứa thời điểm đơn xuất hiện, giá TOU, dữ liệu suy hao pin hoặc giới hạn công
-suất dùng chung ở trạm; các thành phần tương ứng trong mã là **giả định nghiên cứu có thể tái lập**.
-Heuristic sạc chọn đường ngắn nhất và mức sạc vừa đủ, nên GA chủ yếu tối ưu thứ tự và phân tuyến
-khách; nó không tối ưu độc lập lịch sạc. Không mô phỏng hàng đợi hoặc chia sẻ công suất giữa xe
-tại trạm. Cần báo cáo trung thực tỷ lệ phục vụ, thời gian tính và seed, không gọi chỉ số hao mòn
-là tuổi thọ pin thực.
+Mã nguồn trong dự án này tự triển khai các bộ giải; không dùng lời giải tốt
+nhất của Montoya làm kết quả cho bài toán mở rộng có TOU/động/hao pin.
