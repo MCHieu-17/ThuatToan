@@ -1,1 +1,3 @@
-"""EVRP research project. Core solvers use only the Python standard library."""
+"""Realtime EVRP research package (Montoya-based, TOU, nonlinear charging)."""
+
+__version__ = "0.1.0"

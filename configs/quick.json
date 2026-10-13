@@ -1,0 +1,30 @@
+{
+  "seed": 42,
+  "vehicles": 0,
+  "customers_per_vehicle": 5,
+  "min_vehicles": 2,
+  "dynamic_fraction": 0.5,
+  "release_until_fraction": 0.2,
+  "start_clock_hour": 8.0,
+  "stations_by_type": {
+    "fast": {"ports": 2, "power_kw": 40.0, "charger_kw": 44.0},
+    "normal": {"ports": 2, "power_kw": 22.0, "charger_kw": 22.0},
+    "slow": {"ports": 1, "power_kw": 7.0, "charger_kw": 7.0}
+  },
+  "w_time": 1.0,
+  "w_electricity": 0.3,
+  "w_degradation": 0.2,
+  "time_step_hours": 0.08333333333333333,
+  "soc_step": 0.1,
+  "candidate_stations": 3,
+  "max_station_hops": 2,
+  "max_labels": 8000,
+  "dp_budget_seconds": 0.5,
+  "solver_budget_seconds": 5.0,
+  "population": 8,
+  "generations": 15,
+  "mutation_probability": 0.3,
+  "elite_size": 2,
+  "vns_iterations": 8,
+  "replan_interval_hours": 0.5
+}

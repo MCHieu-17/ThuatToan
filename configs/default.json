@@ -1,38 +1,22 @@
 {
-  "vehicles": 5,
   "seed": 42,
+  "vehicles": 0,
+  "customers_per_vehicle": 5,
+  "min_vehicles": 2,
   "dynamic_fraction": 0.5,
   "release_until_fraction": 0.35,
   "start_clock_hour": 8.0,
-  "station_ports": 2,
-  "station_power_kw": 40.0,
-  "charger_power_kw": 44.0,
-  "power_fractions": [
-    0.5,
-    1.0
-  ],
-  "station_overrides": {},
+  "horizon_factor": 1.0,
+  "stations_by_type": {
+    "fast": {"ports": 2, "power_kw": 50.0, "charger_kw": 44.0},
+    "normal": {"ports": 2, "power_kw": 22.0, "charger_kw": 22.0},
+    "slow": {"ports": 1, "power_kw": 7.0, "charger_kw": 7.0}
+  },
   "tou": [
-    {
-      "start": 0.0,
-      "end": 9.0,
-      "price": 0.12
-    },
-    {
-      "start": 9.0,
-      "end": 12.0,
-      "price": 0.25
-    },
-    {
-      "start": 12.0,
-      "end": 17.0,
-      "price": 0.45
-    },
-    {
-      "start": 17.0,
-      "end": 24.0,
-      "price": 0.18
-    }
+    {"start": 0.0, "end": 9.0, "price": 0.12},
+    {"start": 9.0, "end": 12.0, "price": 0.25},
+    {"start": 12.0, "end": 17.0, "price": 0.45},
+    {"start": 17.0, "end": 24.0, "price": 0.18}
   ],
   "w_time": 1.0,
   "w_electricity": 0.3,
@@ -43,17 +27,21 @@
   "deep_charge_cost": 0.8,
   "deep_discharge_cost": 0.6,
   "reserve_soc": 0.02,
+  "power_fractions": [0.5, 1.0],
   "time_step_hours": 0.08333333333333333,
   "soc_step": 0.1,
+  "energy_quantum_kwh": 0.01,
   "candidate_stations": 3,
   "max_station_hops": 2,
   "max_labels": 12000,
   "dp_budget_seconds": 0.8,
   "solver_budget_seconds": 10.0,
-  "population": 10,
-  "generations": 20,
+  "population": 12,
+  "generations": 25,
   "mutation_probability": 0.3,
   "elite_size": 2,
-  "vns_iterations": 8,
+  "vns_iterations": 10,
+  "pareto_selection": true,
+  "use_station_genes": true,
   "replan_interval_hours": 0.5
 }

@@ -1,0 +1,215 @@
+{
+ "format": "evrp-enhanced-1",
+ "name": "tc1c10s2ct2",
+ "source": "data\\montoya-et-al-2017\\tc1c10s2ct2.xml",
+ "seed": 42,
+ "energy_unit": "kWh",
+ "depot": 0,
+ "capacity_kwh": 16.0,
+ "consumption_kwh_km": 0.125,
+ "speed_kmh": 40.0,
+ "horizon_hours": 10.0,
+ "vehicles": 2,
+ "start_clock_hour": 8.0,
+ "dynamic_fraction": 0.5,
+ "release_until_fraction": 0.35,
+ "tou": [
+  {
+   "start": 0.0,
+   "end": 9.0,
+   "price": 0.12
+  },
+  {
+   "start": 9.0,
+   "end": 12.0,
+   "price": 0.25
+  },
+  {
+   "start": 12.0,
+   "end": 17.0,
+   "price": 0.45
+  },
+  {
+   "start": 17.0,
+   "end": 24.0,
+   "price": 0.18
+  }
+ ],
+ "degradation": {
+  "deep_charge_delta_soc": 0.6,
+  "deep_discharge_soc": 0.15,
+  "discharge_reset_soc": 0.25,
+  "deep_charge_cost": 0.8,
+  "deep_discharge_cost": 0.6,
+  "reserve_soc": 0.02
+ },
+ "curves": {
+  "fast": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    13.6,
+    0.31
+   ],
+   [
+    15.2,
+    0.39
+   ],
+   [
+    16.0,
+    0.51
+   ]
+  ],
+  "slow": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    13.6,
+    1.26
+   ],
+   [
+    15.2,
+    1.54
+   ],
+   [
+    16.0,
+    2.04
+   ]
+  ]
+ },
+ "nodes": [
+  {
+   "id": 0,
+   "kind": "depot",
+   "x": 98.07,
+   "y": 96.66,
+   "service_hours": 0.0,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 1,
+   "kind": "customer",
+   "x": 103.22,
+   "y": 4.15,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.488384
+  },
+  {
+   "id": 2,
+   "kind": "customer",
+   "x": 102.14,
+   "y": 5.0,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.358734
+  },
+  {
+   "id": 3,
+   "kind": "customer",
+   "x": 104.47,
+   "y": 4.16,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 4,
+   "kind": "customer",
+   "x": 103.9,
+   "y": 6.37,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 5,
+   "kind": "customer",
+   "x": 106.66,
+   "y": 1.66,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.592337
+  },
+  {
+   "id": 6,
+   "kind": "customer",
+   "x": 110.05,
+   "y": 61.37,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 7,
+   "kind": "customer",
+   "x": 81.43,
+   "y": 26.95,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.908783
+  },
+  {
+   "id": 8,
+   "kind": "customer",
+   "x": 58.25,
+   "y": 70.62,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 9,
+   "kind": "customer",
+   "x": 71.44,
+   "y": 20.7,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 10,
+   "kind": "customer",
+   "x": 110.79,
+   "y": 107.74,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.066724
+  },
+  {
+   "id": 11,
+   "kind": "station",
+   "x": 101.43,
+   "y": 21.43,
+   "service_hours": 0.0,
+   "station_type": "fast",
+   "release_hours": 0.0
+  },
+  {
+   "id": 12,
+   "kind": "station",
+   "x": 101.44,
+   "y": 51.44,
+   "service_hours": 0.0,
+   "station_type": "slow",
+   "release_hours": 0.0
+  }
+ ],
+ "stations": {
+  "11": {
+   "ports": 2,
+   "power_kw": 50.0,
+   "charger_kw": 44.0
+  },
+  "12": {
+   "ports": 1,
+   "power_kw": 7.0,
+   "charger_kw": 7.0
+  }
+ }
+}

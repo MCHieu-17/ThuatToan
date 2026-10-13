@@ -1,62 +1,97 @@
+"""Shared fleet evaluator: routes -> charging plans -> objective value.
+
+Vehicles are solved in increasing id order. Each confirmed charging session is
+written to the shared station calendar so later vehicles see the reservation.
+A route whose charging subproblem has no feasible plan is left unassigned; the
+solution rank then prefers serving more customers before lower F.
+"""
 from __future__ import annotations
 
-import math
 import time
+from math import isfinite
 
 from evrp.algorithms.charging_dp import solve_charging
 from evrp.charging.calendar import StationCalendar
 from evrp.config import Config
-from evrp.domain import Instance, Solution, VehicleState
+from evrp.domain import Instance, RoutePlan, Solution, VehicleState
+from evrp.metrics import OperationCounters, action_score, component_costs
 
 
 class FleetEvaluator:
-    """Decode routes in fixed vehicle-ID priority; cache only completed DP searches."""
-    def __init__(self, instance: Instance, config: Config, states: dict[int, VehicleState],
-                 calendar: StationCalendar, releases: dict[int, float], customers: list[int],
-                 deadline: float):
-        self.instance, self.config = instance, config
-        self.states, self.calendar, self.releases = states, calendar, releases
-        self.customers, self.deadline = set(customers), deadline
-        self.cache = {}
-        self.evaluations = 0
-        self.dp_calls = 0
-        self.dp_statuses: dict[str, int] = {}
+    def __init__(self, instance: Instance, config: Config, releases: dict[int, float],
+                 states: dict[int, VehicleState], customers, counters: OperationCounters | None = None):
+        self.instance = instance
+        self.config = config
+        self.releases = releases
+        self.states = states
+        self.customers = set(customers)
+        self.counters = counters if counters is not None else OperationCounters()
+        self.deadline: float | None = None
 
-    def evaluate(self, routes: dict[int, list[int]]) -> Solution:
-        self.evaluations += 1
-        flattened = [n for route in routes.values() for n in route]
-        if len(flattened) != len(set(flattened)) or not set(flattened) <= self.customers:
-            raise ValueError("Routes must contain distinct, currently known customers")
-        calendar = self.calendar.clone()
-        plans, accepted = {}, {}
-        unassigned = self.customers - set(flattened)
-        score = 0.0
+    def evaluate(self, routes: dict[int, list[int]], deadline: float | None = None,
+                 preferred: dict[int, int] | None = None) -> Solution:
+        self.counters.evaluations += 1
+        effective_deadline = self.deadline
+        if deadline is not None:
+            effective_deadline = deadline if effective_deadline is None else min(deadline, effective_deadline)
+
+        planned: dict[int, list[int]] = {}
+        taken: set[int] = set()
         for vehicle in sorted(self.states):
-            route = list(routes.get(vehicle, []))
-            state = self.states[vehicle]
-            key = (vehicle, tuple(route), state, calendar.fingerprint())
-            result = self.cache.get(key)
-            if result is None:
-                self.dp_calls += 1
-                result = solve_charging(self.instance, self.config, route, state, calendar,
-                                        self.releases, self.deadline)
-                self.dp_statuses[result.status] = self.dp_statuses.get(result.status, 0) + 1
-                if result.status != "search_limit":
-                    self.cache[key] = result
-            if result.plan is None:
-                unassigned.update(route)
-                accepted[vehicle] = []
-                # Away from depot with no feasible return is not a usable candidate.
-                if state.node != self.instance.depot:
-                    score = math.inf
-                continue
-            plans[vehicle], accepted[vehicle] = result.plan, route
-            score += result.plan.score
-            for action in result.plan.actions:
-                calendar.reserve(action)
-        return Solution(accepted, plans, sorted(unassigned), score,
-                        evaluations=self.evaluations, diagnostics=self.diagnostics())
+            planned[vehicle] = []
+            for customer in routes.get(vehicle, ()):
+                if customer in self.customers and customer not in taken:
+                    planned[vehicle].append(customer)
+                    taken.add(customer)
 
-    def diagnostics(self):
-        return {"dp_calls": self.dp_calls, "dp_statuses": dict(self.dp_statuses),
-                "deadline_reached": time.perf_counter() >= self.deadline}
+        calendar = StationCalendar()
+        plans: dict[int, RoutePlan] = {}
+        actions = []
+        unassigned = set(self.customers) - taken
+        started = time.perf_counter()
+        for vehicle in sorted(self.states):
+            route = planned[vehicle]
+            if not route:
+                plans[vehicle] = RoutePlan(vehicle, [], [], 0.0)
+                continue
+            plan = solve_charging(self.instance, self.config, vehicle, route,
+                                  self.states[vehicle], calendar, self.releases,
+                                  self.counters, effective_deadline, preferred)
+            plans[vehicle] = plan
+            if plan.status == "optimal" and isfinite(plan.score):
+                for action in plan.actions:
+                    if action.kind == "charge":
+                        calendar.reserve(action.origin, action.start, action.end, action.allocated_kw)
+                actions.extend(plan.actions)
+            else:
+                unassigned.update(route)
+        score = sum(action_score(action, self.config) for action in actions)
+        time_cost, electricity_cost, degradation_cost = component_costs(actions, self.config)
+        return Solution(routes=planned, plans=plans, unassigned=sorted(unassigned), score=score,
+                        runtime=time.perf_counter() - started,
+                        evaluations=self.counters.evaluations,
+                        time_cost=time_cost, electricity_cost=electricity_cost,
+                        degradation_cost=degradation_cost)
+
+    def empty_solution(self) -> Solution:
+        return Solution(routes={v: [] for v in self.states}, plans={}, unassigned=sorted(self.customers),
+                        score=0.0, evaluations=self.counters.evaluations)
+
+    def calendar_before(self, plans: dict[int, RoutePlan], vehicle: int) -> StationCalendar:
+        calendar = StationCalendar()
+        for other in sorted(self.states):
+            if other >= vehicle:
+                break
+            plan = plans.get(other)
+            if plan is None:
+                continue
+            for action in plan.actions:
+                if action.kind == "charge":
+                    calendar.reserve(action.origin, action.start, action.end, action.allocated_kw)
+        return calendar
+
+    def solve_vehicle(self, calendar: StationCalendar, vehicle: int, route: list[int],
+                      deadline: float | None = None,
+                      preferred: dict[int, int] | None = None) -> RoutePlan:
+        return solve_charging(self.instance, self.config, vehicle, route, self.states[vehicle],
+                              calendar, self.releases, self.counters, deadline, preferred)

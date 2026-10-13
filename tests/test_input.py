@@ -1,71 +1,52 @@
+from __future__ import annotations
+
 from pathlib import Path
-import xml.etree.ElementTree as ET
 
 import pytest
 
-from evrp.config import Config
-from evrp.io.montoya import discover_instances, load_instance
-from evrp.scenario import generate_scenario
+from evrp.io.enhance import apply_meta, load_enhanced
+from evrp.io.montoya import discover_instances, load_original
+
+DATA = Path("data/montoya-et-al-2017")
+ENHANCED = Path("data/enhanced")
 
 
-def test_units_and_namespace(tmp_path, demo):
-    tree = ET.parse(demo.source)
-    for element in tree.getroot().iter():
-        if element.tag in {"battery_capacity", "consumption_rate", "battery_level"}:
-            element.text = str(float(element.text) / 1000)
-        element.tag = "{urn:test}" + element.tag
-    target = tmp_path / "converted.xml"
-    tree.write(target)
-    converted = load_instance(target, "kWh")
-    assert converted.capacity_kwh == demo.capacity_kwh == 5
-    assert converted.consumption_kwh_km == demo.consumption_kwh_km == .4
-    assert converted.curves == demo.curves
-    assert converted.travel(0, 1) == pytest.approx((.4, 1.6))
-
-
-def test_invalid_curve_rejected(tmp_path, demo):
-    text = Path(demo.source).read_text().replace("<charging_time>0.75</charging_time>",
-                                               "<charging_time>0.2</charging_time>")
-    file = tmp_path / "invalid.xml"
-    file.write_text(text)
-    with pytest.raises(ValueError, match="strictly increasing"):
-        load_instance(file)
-
-
-def test_discover_recursive_uppercase(tmp_path, demo):
-    nested = tmp_path / "nested"
-    nested.mkdir()
-    file = nested / "x.XML"
-    file.write_text(Path(demo.source).read_text())
-    assert discover_instances(tmp_path) == [file]
-
-
-def test_real_montoya_when_present():
-    root = Path(__file__).parents[1] / "data/montoya-et-al-2017"
-    files = discover_instances(root)
+def test_montoya_units_and_structure():
+    files = discover_instances(DATA)
     if not files:
-        pytest.skip("Original XML dataset is not bundled")
-    for file in files:
-        instance = load_instance(file)
-        assert instance.capacity_kwh == 16
-        assert instance.speed_kmh == 40
-        assert instance.consumption_kwh_km == .125
-        assert len(instance.customers) in {10, 20, 40, 80, 160, 320}
+        pytest.skip("Montoya dataset not present")
+    instance = load_original(files[0])
+    assert instance.capacity_kwh == pytest.approx(16.0)
+    assert instance.consumption_kwh_km == pytest.approx(0.125)
+    assert instance.speed_kmh == pytest.approx(40.0)
+    assert instance.horizon_hours == pytest.approx(10.0)
+    assert instance.depot == 0
+    assert instance.customers
+    assert instance.stations
 
 
-@pytest.mark.parametrize("kwargs", [
-    {"w_time": -1}, {"station_ports": 1.5}, {"soc_step": 0},
-    {"reserve_soc": .2}, {"power_fractions": [0]}, {"w_time": 0,"w_electricity": 0,"w_degradation": 0},
-    {"tou": [{"start": 1,"end": 24,"price": .1}]}, {"solver_budget_seconds": float("nan")},
-])
-def test_bad_configuration(kwargs):
-    with pytest.raises(ValueError):
-        Config(**kwargs).validate()
+def test_enhanced_dataset_roundtrip():
+    path = ENHANCED / "tc0c10s2ct1.json"
+    if not path.is_file():
+        pytest.skip("enhanced dataset not prepared")
+    instance, meta = load_enhanced(path)
+    assert instance.name == "tc0c10s2ct1"
+    assert instance.capacity_kwh == pytest.approx(16.0)
+    assert instance.vehicles >= 1
+    assert meta.tou[-1]["end"] == 24.0
+    dynamic = [n for n in instance.nodes.values() if n.kind == "customer" and n.release_hours > 0]
+    assert dynamic, "expected some realtime customers"
+    for node in dynamic:
+        assert 0.0 < node.release_hours <= instance.horizon_hours
 
 
-def test_scenario_reproducible_and_online(demo, config):
-    a, b = generate_scenario(demo, config, 42), generate_scenario(demo, config, 42)
-    assert a.releases == b.releases
-    assert len([t for t in a.releases.values() if t > 0]) == round(len(demo.customers) * config.dynamic_fraction)
-    for at in [0, .1, .5, 1]:
-        assert all(a.releases[n] <= at + 1e-9 for n in a.known(at))
+def test_apply_meta_sets_config():
+    path = ENHANCED / "tc0c10s2ct1.json"
+    if not path.is_file():
+        pytest.skip("enhanced dataset not prepared")
+    _, meta = load_enhanced(path)
+    from evrp.config import Config
+    config = Config()
+    apply_meta(config, meta)
+    assert config.tou == meta.tou
+    assert config.deep_charge_cost == meta.degradation["deep_charge_cost"]

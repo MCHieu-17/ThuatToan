@@ -1,49 +1,61 @@
-"""Feasible minimum-increment insertion, evaluated by the shared charging DP."""
+"""Baseline: feasible minimum-increment greedy insertion + charging DP.
+
+Each insertion candidate only re-solves the vehicle that receives the customer;
+other vehicles are unchanged. The chosen candidate is then re-evaluated for the
+whole fleet so the accepted solution stays consistent (station reservations are
+solved in increasing vehicle id order).
+"""
 from __future__ import annotations
 
 import time
 from math import isfinite
 
 from evrp.algorithms.evaluator import FleetEvaluator
-from evrp.domain import Solution
+from evrp.domain import RoutePlan, Solution
 
 
 def greedy_insert(evaluator: FleetEvaluator, seed_routes: dict[int, list[int]] | None = None,
                   deadline: float | None = None) -> Solution:
     started = time.perf_counter()
-    deadline = min(deadline or evaluator.deadline, evaluator.deadline)
-    routes = {v: list((seed_routes or {}).get(v, [])) for v in evaluator.states}
-    solution = evaluator.evaluate(routes)
+    limit = evaluator.deadline if deadline is None else (deadline if evaluator.deadline is None
+                                                         else min(deadline, evaluator.deadline))
+
+    routes = {vehicle: list((seed_routes or {}).get(vehicle, [])) for vehicle in evaluator.states}
+    solution = evaluator.evaluate(routes, limit)
     remaining = sorted(solution.unassigned,
-                       key=lambda n: (evaluator.releases.get(n, 0),
-                                      evaluator.instance.travel(evaluator.instance.depot, n)[0], n))
-    history = []
+                       key=lambda c: (evaluator.releases.get(c, 0.0),
+                                      evaluator.instance.travel(evaluator.instance.depot, c)[0], c))
+
     for customer in remaining:
-        if time.perf_counter() >= deadline:
+        if limit is not None and time.perf_counter() >= limit:
             break
-        best = None
-        previously = set(evaluator.customers) - set(solution.unassigned)
+        base = solution
+        best_routes: dict[int, list[int]] | None = None
+        best_cost = float("inf")
         for vehicle in sorted(evaluator.states):
-            route = solution.routes.get(vehicle, [])
+            route = base.routes.get(vehicle, [])
+            calendar = evaluator.calendar_before(base.plans, vehicle)
+            base_vehicle_score = base.plans.get(vehicle, RoutePlan(vehicle, [], [], 0.0)).score
+            other_score = base.score - (base_vehicle_score if isfinite(base_vehicle_score) else 0.0)
             for position in range(len(route) + 1):
-                if time.perf_counter() >= deadline:
-                    break
-                candidate_routes = {v: list(r) for v, r in solution.routes.items()}
-                candidate_routes[vehicle] = route[:position] + [customer] + route[position:]
-                candidate = evaluator.evaluate(candidate_routes)
-                if not isfinite(candidate.score):
+                evaluator.counters.insertion_candidates += 1
+                candidate_route = route[:position] + [customer] + route[position:]
+                plan = evaluator.solve_vehicle(calendar, vehicle, candidate_route, limit)
+                if plan.status != "optimal" or not isfinite(plan.score):
                     continue
-                assigned = evaluator.customers - set(candidate.unassigned)
-                if customer not in assigned or not previously <= assigned:
-                    continue
-                if best is None or candidate.rank < best.rank:
-                    best = candidate
-        if best is not None:
-            solution = best
-            history.append({"step": len(history), "phase": "greedy",
-                            "F_remaining": solution.score, "unassigned": len(solution.unassigned)})
+                total = other_score + plan.score
+                if total < best_cost - 1e-12:
+                    best_cost = total
+                    best_routes = {v: list(r) for v, r in base.routes.items()}
+                    best_routes[vehicle] = candidate_route
+        if best_routes is None:
+            continue
+        candidate = evaluator.evaluate(best_routes, limit)
+        previously_served = evaluator.customers - set(base.unassigned)
+        served = evaluator.customers - set(candidate.unassigned)
+        if customer in served and previously_served <= served:
+            solution = candidate
+
     solution.runtime = time.perf_counter() - started
-    solution.evaluations = evaluator.evaluations
-    solution.history = history
-    solution.diagnostics = evaluator.diagnostics()
+    solution.evaluations = evaluator.counters.evaluations
     return solution

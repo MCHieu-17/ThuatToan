@@ -1,7 +1,9 @@
 __pycache__/
-.pytest_cache/
+*.py[cod]
 .venv/
+venv/
+.pytest_cache/
 *.egg-info/
-results/*
-!results/README.md
-data/montoya-et-al-2017/*.xml
+build/
+dist/
+results/webapp/

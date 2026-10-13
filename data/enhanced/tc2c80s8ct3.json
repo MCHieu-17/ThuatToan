@@ -1,0 +1,947 @@
+{
+ "format": "evrp-enhanced-1",
+ "name": "tc2c80s8ct3",
+ "source": "data\\montoya-et-al-2017\\tc2c80s8ct3.xml",
+ "seed": 42,
+ "energy_unit": "kWh",
+ "depot": 0,
+ "capacity_kwh": 16.0,
+ "consumption_kwh_km": 0.125,
+ "speed_kmh": 40.0,
+ "horizon_hours": 10.0,
+ "vehicles": 16,
+ "start_clock_hour": 8.0,
+ "dynamic_fraction": 0.5,
+ "release_until_fraction": 0.35,
+ "tou": [
+  {
+   "start": 0.0,
+   "end": 9.0,
+   "price": 0.12
+  },
+  {
+   "start": 9.0,
+   "end": 12.0,
+   "price": 0.25
+  },
+  {
+   "start": 12.0,
+   "end": 17.0,
+   "price": 0.45
+  },
+  {
+   "start": 17.0,
+   "end": 24.0,
+   "price": 0.18
+  }
+ ],
+ "degradation": {
+  "deep_charge_delta_soc": 0.6,
+  "deep_discharge_soc": 0.15,
+  "discharge_reset_soc": 0.25,
+  "deep_charge_cost": 0.8,
+  "deep_discharge_cost": 0.6,
+  "reserve_soc": 0.02
+ },
+ "curves": {
+  "fast": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    13.6,
+    0.31
+   ],
+   [
+    15.2,
+    0.39
+   ],
+   [
+    16.0,
+    0.51
+   ]
+  ],
+  "normal": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    13.6,
+    0.62
+   ],
+   [
+    15.2,
+    0.77
+   ],
+   [
+    16.0,
+    1.01
+   ]
+  ],
+  "slow": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    13.6,
+    1.26
+   ],
+   [
+    15.2,
+    1.54
+   ],
+   [
+    16.0,
+    2.04
+   ]
+  ]
+ },
+ "nodes": [
+  {
+   "id": 0,
+   "kind": "depot",
+   "x": 57.65,
+   "y": 70.34,
+   "service_hours": 0.0,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 1,
+   "kind": "customer",
+   "x": 92.3,
+   "y": 86.36,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.324611
+  },
+  {
+   "id": 2,
+   "kind": "customer",
+   "x": 95.57,
+   "y": 84.24,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 3,
+   "kind": "customer",
+   "x": 90.98,
+   "y": 91.84,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 4,
+   "kind": "customer",
+   "x": 97.9,
+   "y": 86.85,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.338508
+  },
+  {
+   "id": 5,
+   "kind": "customer",
+   "x": 5.55,
+   "y": 105.28,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.96623
+  },
+  {
+   "id": 6,
+   "kind": "customer",
+   "x": 2.21,
+   "y": 100.77,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 7,
+   "kind": "customer",
+   "x": 2.77,
+   "y": 110.0,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.113042
+  },
+  {
+   "id": 8,
+   "kind": "customer",
+   "x": 4.53,
+   "y": 102.13,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 9,
+   "kind": "customer",
+   "x": 60.89,
+   "y": 110.62,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 10,
+   "kind": "customer",
+   "x": 58.68,
+   "y": 111.9,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.824949
+  },
+  {
+   "id": 11,
+   "kind": "customer",
+   "x": 61.62,
+   "y": 111.23,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.554062
+  },
+  {
+   "id": 12,
+   "kind": "customer",
+   "x": 63.14,
+   "y": 108.55,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.876799
+  },
+  {
+   "id": 13,
+   "kind": "customer",
+   "x": 34.02,
+   "y": 74.64,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 3.405905
+  },
+  {
+   "id": 14,
+   "kind": "customer",
+   "x": 39.3,
+   "y": 72.19,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.324871
+  },
+  {
+   "id": 15,
+   "kind": "customer",
+   "x": 37.06,
+   "y": 75.94,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.932143
+  },
+  {
+   "id": 16,
+   "kind": "customer",
+   "x": 36.67,
+   "y": 71.64,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 17,
+   "kind": "customer",
+   "x": 74.44,
+   "y": 56.17,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 18,
+   "kind": "customer",
+   "x": 72.87,
+   "y": 50.66,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.902916
+  },
+  {
+   "id": 19,
+   "kind": "customer",
+   "x": 74.07,
+   "y": 53.15,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 20,
+   "kind": "customer",
+   "x": 78.76,
+   "y": 53.85,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 21,
+   "kind": "customer",
+   "x": 95.09,
+   "y": 52.76,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 22,
+   "kind": "customer",
+   "x": 97.18,
+   "y": 53.05,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.16482
+  },
+  {
+   "id": 23,
+   "kind": "customer",
+   "x": 97.99,
+   "y": 56.23,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 24,
+   "kind": "customer",
+   "x": 98.75,
+   "y": 53.18,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 25,
+   "kind": "customer",
+   "x": 93.06,
+   "y": 28.95,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 26,
+   "kind": "customer",
+   "x": 89.49,
+   "y": 27.61,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 27,
+   "kind": "customer",
+   "x": 90.49,
+   "y": 31.07,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 3.015974
+  },
+  {
+   "id": 28,
+   "kind": "customer",
+   "x": 91.64,
+   "y": 27.86,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.020733
+  },
+  {
+   "id": 29,
+   "kind": "customer",
+   "x": 30.33,
+   "y": 2.24,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.466002
+  },
+  {
+   "id": 30,
+   "kind": "customer",
+   "x": 34.37,
+   "y": 3.56,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.160386
+  },
+  {
+   "id": 31,
+   "kind": "customer",
+   "x": 28.93,
+   "y": 7.15,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 32,
+   "kind": "customer",
+   "x": 27.11,
+   "y": 3.14,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.797645
+  },
+  {
+   "id": 33,
+   "kind": "customer",
+   "x": 108.15,
+   "y": 10.39,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 34,
+   "kind": "customer",
+   "x": 111.5,
+   "y": 5.74,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 35,
+   "kind": "customer",
+   "x": 109.78,
+   "y": 11.29,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.012859
+  },
+  {
+   "id": 36,
+   "kind": "customer",
+   "x": 107.7,
+   "y": 14.69,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.279273
+  },
+  {
+   "id": 37,
+   "kind": "customer",
+   "x": 54.76,
+   "y": 46.78,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 38,
+   "kind": "customer",
+   "x": 49.75,
+   "y": 47.78,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.814769
+  },
+  {
+   "id": 39,
+   "kind": "customer",
+   "x": 56.01,
+   "y": 51.85,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 40,
+   "kind": "customer",
+   "x": 51.98,
+   "y": 42.93,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 41,
+   "kind": "customer",
+   "x": 30.87,
+   "y": 48.32,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 42,
+   "kind": "customer",
+   "x": 33.25,
+   "y": 51.3,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.353506
+  },
+  {
+   "id": 43,
+   "kind": "customer",
+   "x": 31.45,
+   "y": 53.23,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 44,
+   "kind": "customer",
+   "x": 28.07,
+   "y": 47.45,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 45,
+   "kind": "customer",
+   "x": 42.45,
+   "y": 99.12,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.972908
+  },
+  {
+   "id": 46,
+   "kind": "customer",
+   "x": 37.61,
+   "y": 102.6,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.224896
+  },
+  {
+   "id": 47,
+   "kind": "customer",
+   "x": 40.5,
+   "y": 98.49,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 48,
+   "kind": "customer",
+   "x": 44.62,
+   "y": 104.22,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 49,
+   "kind": "customer",
+   "x": 89.73,
+   "y": 45.89,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.276913
+  },
+  {
+   "id": 50,
+   "kind": "customer",
+   "x": 89.95,
+   "y": 45.45,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 51,
+   "kind": "customer",
+   "x": 93.44,
+   "y": 46.37,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 52,
+   "kind": "customer",
+   "x": 93.18,
+   "y": 42.2,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.295634
+  },
+  {
+   "id": 53,
+   "kind": "customer",
+   "x": 8.56,
+   "y": 77.53,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.733275
+  },
+  {
+   "id": 54,
+   "kind": "customer",
+   "x": 12.45,
+   "y": 81.86,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 55,
+   "kind": "customer",
+   "x": 7.76,
+   "y": 77.66,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.934423
+  },
+  {
+   "id": 56,
+   "kind": "customer",
+   "x": 11.22,
+   "y": 75.4,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 57,
+   "kind": "customer",
+   "x": 111.53,
+   "y": 68.72,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 58,
+   "kind": "customer",
+   "x": 114.96,
+   "y": 69.84,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 59,
+   "kind": "customer",
+   "x": 117.48,
+   "y": 69.2,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 3.278291
+  },
+  {
+   "id": 60,
+   "kind": "customer",
+   "x": 111.1,
+   "y": 65.67,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 61,
+   "kind": "customer",
+   "x": 52.74,
+   "y": 32.89,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.268124
+  },
+  {
+   "id": 62,
+   "kind": "customer",
+   "x": 48.47,
+   "y": 32.95,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 63,
+   "kind": "customer",
+   "x": 48.88,
+   "y": 32.61,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 64,
+   "kind": "customer",
+   "x": 55.52,
+   "y": 36.73,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 65,
+   "kind": "customer",
+   "x": 39.75,
+   "y": 20.59,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.131959
+  },
+  {
+   "id": 66,
+   "kind": "customer",
+   "x": 42.42,
+   "y": 16.03,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 67,
+   "kind": "customer",
+   "x": 34.54,
+   "y": 18.5,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.598986
+  },
+  {
+   "id": 68,
+   "kind": "customer",
+   "x": 38.03,
+   "y": 26.12,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 69,
+   "kind": "customer",
+   "x": 54.32,
+   "y": 118.33,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.551944
+  },
+  {
+   "id": 70,
+   "kind": "customer",
+   "x": 53.49,
+   "y": 114.93,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.57191
+  },
+  {
+   "id": 71,
+   "kind": "customer",
+   "x": 57.6,
+   "y": 117.81,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 72,
+   "kind": "customer",
+   "x": 58.04,
+   "y": 117.64,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.328095
+  },
+  {
+   "id": 73,
+   "kind": "customer",
+   "x": 11.32,
+   "y": 17.43,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 74,
+   "kind": "customer",
+   "x": 10.67,
+   "y": 15.88,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 3.463332
+  },
+  {
+   "id": 75,
+   "kind": "customer",
+   "x": 9.18,
+   "y": 14.4,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.24
+  },
+  {
+   "id": 76,
+   "kind": "customer",
+   "x": 8.62,
+   "y": 22.22,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 1.949325
+  },
+  {
+   "id": 77,
+   "kind": "customer",
+   "x": 21.13,
+   "y": 49.89,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 0.0
+  },
+  {
+   "id": 78,
+   "kind": "customer",
+   "x": 23.16,
+   "y": 52.75,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.39615
+  },
+  {
+   "id": 79,
+   "kind": "customer",
+   "x": 20.6,
+   "y": 52.24,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.949982
+  },
+  {
+   "id": 80,
+   "kind": "customer",
+   "x": 25.59,
+   "y": 48.65,
+   "service_hours": 0.5,
+   "station_type": "",
+   "release_hours": 2.716
+  },
+  {
+   "id": 81,
+   "kind": "station",
+   "x": 54.94,
+   "y": 42.84,
+   "service_hours": 0.0,
+   "station_type": "slow",
+   "release_hours": 0.0
+  },
+  {
+   "id": 82,
+   "kind": "station",
+   "x": 58.56,
+   "y": 112.54,
+   "service_hours": 0.0,
+   "station_type": "fast",
+   "release_hours": 0.0
+  },
+  {
+   "id": 83,
+   "kind": "station",
+   "x": 94.82,
+   "y": 53.29,
+   "service_hours": 0.0,
+   "station_type": "fast",
+   "release_hours": 0.0
+  },
+  {
+   "id": 84,
+   "kind": "station",
+   "x": 60.83,
+   "y": 45.33,
+   "service_hours": 0.0,
+   "station_type": "normal",
+   "release_hours": 0.0
+  },
+  {
+   "id": 85,
+   "kind": "station",
+   "x": 109.12,
+   "y": 10.92,
+   "service_hours": 0.0,
+   "station_type": "slow",
+   "release_hours": 0.0
+  },
+  {
+   "id": 86,
+   "kind": "station",
+   "x": 92.0,
+   "y": 34.2,
+   "service_hours": 0.0,
+   "station_type": "slow",
+   "release_hours": 0.0
+  },
+  {
+   "id": 87,
+   "kind": "station",
+   "x": 111.53,
+   "y": 111.53,
+   "service_hours": 0.0,
+   "station_type": "slow",
+   "release_hours": 0.0
+  },
+  {
+   "id": 88,
+   "kind": "station",
+   "x": 48.35,
+   "y": 106.54,
+   "service_hours": 0.0,
+   "station_type": "slow",
+   "release_hours": 0.0
+  }
+ ],
+ "stations": {
+  "81": {
+   "ports": 1,
+   "power_kw": 7.0,
+   "charger_kw": 7.0
+  },
+  "82": {
+   "ports": 2,
+   "power_kw": 50.0,
+   "charger_kw": 44.0
+  },
+  "83": {
+   "ports": 2,
+   "power_kw": 50.0,
+   "charger_kw": 44.0
+  },
+  "84": {
+   "ports": 2,
+   "power_kw": 22.0,
+   "charger_kw": 22.0
+  },
+  "85": {
+   "ports": 1,
+   "power_kw": 7.0,
+   "charger_kw": 7.0
+  },
+  "86": {
+   "ports": 1,
+   "power_kw": 7.0,
+   "charger_kw": 7.0
+  },
+  "87": {
+   "ports": 1,
+   "power_kw": 7.0,
+   "charger_kw": 7.0
+  },
+  "88": {
+   "ports": 1,
+   "power_kw": 7.0,
+   "charger_kw": 7.0
+  }
+ }
+}
