@@ -98,7 +98,7 @@ một lần duy nhất ở `evrp/io/montoya.py` (chia 1000) để phần còn l�
 Chạy sinh dữ liệu:
 
 ```bash
-python3 -m evrp prepare --data data/montoya-et-al-2017 --out data/enhanced --config configs/default.json
+python3 -m evrp prepare --data data/montoya-et-al-2017 --out data/enhanced --config configs/benchmark.json
 ```
 
 Kết quả: 120 file JSON tại `data/enhanced/`, mỗi file tương ứng một instance XML.

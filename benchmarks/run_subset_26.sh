@@ -5,7 +5,7 @@
 #
 # Vi du:
 #   bash benchmarks/run_subset_26.sh
-#   CONFIG=configs/comparison.json SEEDS="42 43" JOBS=12 bash benchmarks/run_subset_26.sh
+#   CONFIG=configs/benchmark.json SEEDS="42 43" JOBS=12 bash benchmarks/run_subset_26.sh
 #
 # Ket qua: results/benchmark_subset26/{comparison.csv,statistics.csv,pareto.csv,*.json}
 set -euo pipefail
@@ -15,7 +15,7 @@ __START=$(date +%s)
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-DATA="${DATA:-data/montoya-et-al-2017}"
+DATA="${DATA:-data/enhanced}"
 OUT="${OUT:-results/benchmark_subset26}"
 CONFIG="${CONFIG:-configs/benchmark.json}"
 ALGORITHMS="${ALGORITHMS:-greedy ga ga_vns}"

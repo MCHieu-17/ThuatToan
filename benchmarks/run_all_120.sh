@@ -3,7 +3,7 @@
 #
 # Vi du:
 #   bash benchmarks/run_all_120.sh
-#   CONFIG=configs/comparison.json SEEDS="42 43" JOBS=12 bash benchmarks/run_all_120.sh
+#   CONFIG=configs/benchmark.json SEEDS="42 43" JOBS=12 bash benchmarks/run_all_120.sh
 #
 # Ket qua: results/benchmark_all120/{comparison.csv,statistics.csv,pareto.csv,*.json}
 set -euo pipefail
@@ -13,7 +13,7 @@ __START=$(date +%s)
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-DATA="${DATA:-data/montoya-et-al-2017}"
+DATA="${DATA:-data/enhanced}"
 OUT="${OUT:-results/benchmark_all120}"
 CONFIG="${CONFIG:-configs/benchmark.json}"
 ALGORITHMS="${ALGORITHMS:-greedy ga ga_vns}"
@@ -23,7 +23,10 @@ MODE="${MODE:-dynamic}"
 SELECTION="${SELECTION:-pareto}"
 
 INSTANCES=()
-for xml in "$DATA"/*.xml; do INSTANCES+=("$(basename "$xml" .xml)"); done
+for file in "$DATA"/*.xml "$DATA"/*.json; do
+  [ -e "$file" ] || continue
+  INSTANCES+=("$(basename "$file" | sed -E 's/\.(xml|json)$//')")
+done
 TOTAL=$((${#INSTANCES[@]} * $(echo $ALGORITHMS | wc -w) * $(echo $SEEDS | wc -w)))
 
 echo "instance set : ${#INSTANCES[@]} (Montoya day du)"

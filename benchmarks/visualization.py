@@ -84,8 +84,14 @@ def aggregate(rows: list[dict]) -> dict[tuple[int, str], dict]:
 
     out: dict[tuple[int, str], dict] = {}
     for key, group in buckets.items():
-        def mean(field: str) -> float | None:
-            vals = [v for v in (_to_float(r.get(field)) for r in group) if v is not None]
+        def is_complete(row: dict) -> bool:
+            flag = row.get("complete")
+            return str(flag).strip().lower() in ("true", "1")
+
+        complete = [r for r in group if is_complete(r)]
+
+        def mean(field: str, source: list[dict]) -> float | None:
+            vals = [v for v in (_to_float(r.get(field)) for r in source) if v is not None]
             return statistics.mean(vals) if vals else None
 
         served = [v for v in (_to_float(r.get("served")) for r in group) if v is not None]
@@ -94,17 +100,24 @@ def aggregate(rows: list[dict]) -> dict[tuple[int, str], dict]:
         if served and totals:
             ratio = statistics.mean(served) / statistics.mean(totals)
 
+        served_avg = statistics.mean(served) if served else None
+        total_avg = statistics.mean(totals) if totals else None
+
         out[key] = {
             "size": key[0],
             "algorithm": key[1],
             "runs": len(group),
-            "F": mean("F"),
+            "complete_runs": len(complete),
+            "F": mean("F", group),
             "served_ratio": ratio,
-            "served": statistics.mean(served) if served else None,
-            "runtime": mean("runtime_seconds"),
-            "labels": mean("labels_expanded"),
-            "dp_calls": mean("dp_calls"),
-            "evaluations": mean("evaluations"),
+            "served": served_avg,
+            "total": total_avg,
+            "served_over_total": (f"{served_avg:.1f}/{total_avg:.0f}"
+                                  if served_avg is not None and total_avg is not None else None),
+            "runtime": mean("runtime_seconds", group),
+            "labels": mean("labels_expanded", group),
+            "dp_calls": mean("dp_calls", group),
+            "evaluations": mean("evaluations", group),
         }
     return out
 
@@ -174,8 +187,8 @@ def line_by_size(agg, field, ylabel, title, path: Path, logy: bool = False):
 
 
 def write_summary(agg, path: Path):
-    fields = ["size", "algorithm", "runs", "F", "served_ratio", "served",
-              "runtime", "labels", "dp_calls", "evaluations"]
+    fields = ["size", "algorithm", "runs", "complete_runs", "F", "served_ratio",
+              "served_over_total", "runtime", "labels", "dp_calls", "evaluations"]
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
@@ -203,7 +216,7 @@ def main(argv=None):
     if not agg:
         raise SystemExit(f"khong co du lieu hop le trong {directory}")
 
-    bar_by_size(agg, "F", "F (diem muc tieu, cang thap cang tot)",
+    bar_by_size(agg, "F", "F (cang thap cang tot)",
                 "F trung binh theo kich thuoc", out / "bars_F.png")
     bar_by_size(agg, "served_ratio", "Ty le khach duoc phuc vu",
                 "Ty le phuc vu theo kich thuoc", out / "bars_served.png")

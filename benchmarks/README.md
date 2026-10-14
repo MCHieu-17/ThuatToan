@@ -33,6 +33,10 @@ python3 -m evrp --help
 
 ## 2. Hướng dẫn chạy benchmark
 
+> **Dataset mặc định:** benchmark chạy trên bộ **đã cải tiến** `data/enhanced/`
+> (JSON, có release times, giới hạn cổng sạc, giá điện TOU, suy giảm pin, fleet).
+> Muốn chạy trên XML gốc Montoya, đặt `DATA=data/montoya-et-al-2017`.
+
 Có sẵn 3 script trong `benchmarks/`, mỗi script chia nhỏ công việc thành từng
 tổ hợp `(instance, algorithm, seed)` và chạy song song nhiều tiến trình để tận
 dụng tối đa số nhân CPU.
@@ -82,7 +86,7 @@ Các biến hỗ trợ:
 | `CONFIG` | `configs/benchmark.json` | File cấu hình |
 | `ALGORITHMS` | `greedy ga ga_vns` | Thuật toán cần chạy |
 | `MODE` | `dynamic` | `dynamic` hoặc `static` |
-| `DATA` | `data/montoya-et-al-2017` | Thư mục dữ liệu |
+| `DATA` | `data/enhanced` | Thư mục dữ liệu |
 | `OUT` | `results/benchmark_*` | Thư mục kết quả |
 
 Khi chạy xong, script in ra tổng thời gian chạy (giây) ở dòng cuối:
