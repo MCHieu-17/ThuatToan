@@ -9,6 +9,8 @@
 # Ket qua: results/benchmark_by_size/{comparison.csv,statistics.csv,pareto.csv,*.json}
 set -euo pipefail
 
+__START=$(date +%s)
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
@@ -68,3 +70,4 @@ done | DATA="$DATA" CONFIG="$CONFIG" OUT="$OUT" MODE="$MODE" SELECTION="$SELECTI
 
 python3 benchmarks/collect_results.py "$OUT"
 echo "done -> $OUT"
+echo "total time: $(( $(date +%s) - __START ))s"

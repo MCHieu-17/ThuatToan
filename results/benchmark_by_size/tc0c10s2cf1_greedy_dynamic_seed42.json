@@ -6,7 +6,7 @@
  "served": 9,
  "total_customers": 10,
  "complete": false,
- "runtime_seconds": 6.767783536000934,
+ "runtime_seconds": 6.874485025000467,
  "replans": 13,
  "metrics": {
   "F": 17.03185488361607,

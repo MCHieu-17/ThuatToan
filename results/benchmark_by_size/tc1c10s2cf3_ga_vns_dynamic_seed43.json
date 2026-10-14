@@ -6,7 +6,7 @@
  "served": 8,
  "total_customers": 10,
  "complete": false,
- "runtime_seconds": 37.12351487400156,
+ "runtime_seconds": 38.04750842700014,
  "replans": 11,
  "metrics": {
   "F": 19.945022313168284,
@@ -22,9 +22,9 @@
   "makespan": 8.166666666666666
  },
  "counters": {
-  "dp_calls": 8884,
-  "labels_expanded": 229095,
-  "evaluations": 2986,
+  "dp_calls": 8862,
+  "labels_expanded": 234519,
+  "evaluations": 2982,
   "insertion_candidates": 492
  },
  "unserved": [
