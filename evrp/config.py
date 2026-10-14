@@ -27,6 +27,8 @@ class Config:
     vehicles: int = 0
     customers_per_vehicle: int = 5
     min_vehicles: int = 2
+    fleet_clustering_discount: float = 1.0
+    fleet_time_utilization: float = 0.75
     dynamic_fraction: float = 0.5
     release_until_fraction: float = 0.35
     start_clock_hour: float = 8.0
@@ -52,7 +54,7 @@ class Config:
     max_station_hops: int = 2
     max_labels: int = 12000
     dp_budget_seconds: float = 0.8
-    solver_budget_seconds: float = 10.0
+    solver_budget_seconds: float = 30.0
     population: int = 12
     generations: int = 25
     mutation_probability: float = 0.3
@@ -76,9 +78,12 @@ class Config:
         if self.population < 2 or not 1 <= self.elite_size < self.population:
             raise ValueError("require population >= 2 and 1 <= elite_size < population")
         for key in ("time_step_hours", "soc_step", "energy_quantum_kwh", "dp_budget_seconds",
-                    "solver_budget_seconds", "replan_interval_hours", "horizon_factor"):
+                    "solver_budget_seconds", "replan_interval_hours", "horizon_factor",
+                    "fleet_clustering_discount"):
             if getattr(self, key) <= 0:
                 raise ValueError(f"{key} must be positive")
+        if not 0 < self.fleet_time_utilization <= 1:
+            raise ValueError("fleet_time_utilization must lie in (0, 1]")
         for key in ("dynamic_fraction", "release_until_fraction", "mutation_probability"):
             if not 0 <= getattr(self, key) <= 1:
                 raise ValueError(f"{key} must lie in [0, 1]")

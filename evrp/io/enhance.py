@@ -11,6 +11,7 @@ reproducible without re-reading the XML. The original XML files are untouched.
 from __future__ import annotations
 
 import json
+import math
 import random
 from dataclasses import dataclass
 from pathlib import Path
@@ -32,11 +33,57 @@ class ScenarioMeta:
     release_until_fraction: float
 
 
-def _vehicles_for(n_customers: int, config: Config) -> int:
+def _fleet_breakdown(instance: Instance, config: Config) -> dict:
+    """Estimate the minimum fleet from geometry, battery and horizon.
+
+    A fixed customers-per-vehicle ratio ignores that Montoya customers are far
+    apart: a single out-and-back trip can already consume most of the working
+    day. Energy alone is not a hard cap because the vehicle may recharge at a
+    station, so the binding resource is the *working day* (the horizon).
+
+    Work per customer `c` is the out-and-back drive time plus service time. On a
+    shared tour nearby customers are visited consecutively, so the routed travel
+    is discounted by `fleet_clustering_discount`. A single vehicle cannot spend
+    more than `fleet_time_utilization * horizon` hours on duty. The fleet is the
+    ceiling of total work over that capacity, raised so every customer whose
+    isolated tour already overflows the day gets a vehicle, then clamped to the
+    explicit `vehicles` value when given.
+    """
+    depot = instance.nodes[instance.depot]
+    customers = [instance.nodes[c] for c in instance.customers]
+    if not customers:
+        return {"vehicles": max(config.min_vehicles, 1), "time_bound": 1,
+                "long_tours": 0}
+
+    travel_time = []
+    service = []
+    reachable = 0
+    for node in customers:
+        distance = math.hypot(node.x - depot.x, node.y - depot.y)
+        travel_time.append(2.0 * distance / instance.speed_kmh)
+        service.append(node.service_hours)
+        if 2.0 * distance * instance.consumption_kwh_km > instance.capacity_kwh * (1.0 - config.reserve_soc):
+            reachable += 1
+
+    discount = max(1.0, config.fleet_clustering_discount)
+    total_time_work = sum(travel_time) / discount + sum(service)
+    time_capacity = instance.horizon_hours * config.fleet_time_utilization
+
+    time_bound = math.ceil(total_time_work / time_capacity) if time_capacity > 0 else len(customers)
+
+    # A customer whose isolated tour already overflows the day needs a vehicle of
+    # its own, even if the aggregate bound would let it share one.
+    solo = sum(1 for drive, svc in zip(travel_time, service)
+               if drive + svc > time_capacity)
+    needed = max(1, time_bound, solo, config.min_vehicles)
+    needed = min(needed, len(customers))
     if config.vehicles > 0:
-        return config.vehicles
-    needed = -(-n_customers // config.customers_per_vehicle)
-    return max(config.min_vehicles, needed)
+        needed = config.vehicles
+    return {"vehicles": needed, "time_bound": time_bound, "long_tours": reachable}
+
+
+def vehicles_for(instance: Instance, config: Config) -> int:
+    return _fleet_breakdown(instance, config)["vehicles"]
 
 
 def build_enhanced(instance: Instance, config: Config, seed: int) -> dict:
@@ -83,7 +130,7 @@ def build_enhanced(instance: Instance, config: Config, seed: int) -> dict:
         "consumption_kwh_km": instance.consumption_kwh_km,
         "speed_kmh": instance.speed_kmh,
         "horizon_hours": horizon,
-        "vehicles": _vehicles_for(len(customers), config),
+        "vehicles": vehicles_for(instance, config),
         "start_clock_hour": config.start_clock_hour,
         "dynamic_fraction": config.dynamic_fraction,
         "release_until_fraction": config.release_until_fraction,

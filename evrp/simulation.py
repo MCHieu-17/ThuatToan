@@ -16,6 +16,7 @@ from evrp.algorithms.ga_vns import run_ga_vns, run_pure_ga
 from evrp.algorithms.greedy import greedy_insert
 from evrp.config import Config
 from evrp.domain import Instance, VehicleState
+from evrp.io.enhance import vehicles_for
 from evrp.metrics import OperationCounters, summarize
 
 
@@ -60,8 +61,7 @@ def simulate(instance: Instance, config: Config, algorithm: str, seed: int = 42,
     if config.vehicles > 0:
         instance.vehicles = config.vehicles
     elif instance.vehicles <= 0:
-        needed = -(-len(instance.customers) // config.customers_per_vehicle)
-        instance.vehicles = max(config.min_vehicles, needed)
+        instance.vehicles = vehicles_for(instance, config)
     started = time.perf_counter()
     counters = OperationCounters()
     customers = instance.customers

@@ -244,7 +244,7 @@ def run_ga(evaluator: FleetEvaluator, seed: int = 42, use_vns: bool = False,
     deadline = min(evaluator.deadline or (started + budget), started + budget)
     evaluator.deadline = deadline
 
-    warm_deadline = started + budget * 0.45
+    warm_deadline = started + budget * 0.6
     incumbent = greedy_insert(evaluator, seed_routes, warm_deadline)
     seed_chromosome = encode(incumbent.routes, customers, fleet, rng)
     evaluated_seed = _evaluate(evaluator, seed_chromosome, fleet, deadline)

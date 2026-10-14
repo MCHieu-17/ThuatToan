@@ -1,7 +1,7 @@
 {
  "format": "evrp-enhanced-1",
  "name": "tc2c160s24ct1",
- "source": "data\\montoya-et-al-2017\\tc2c160s24ct1.xml",
+ "source": "data/montoya-et-al-2017/tc2c160s24ct1.xml",
  "seed": 42,
  "energy_unit": "kWh",
  "depot": 0,
@@ -9,7 +9,7 @@
  "consumption_kwh_km": 0.125,
  "speed_kmh": 40.0,
  "horizon_hours": 10.0,
- "vehicles": 32,
+ "vehicles": 68,
  "start_clock_hour": 8.0,
  "dynamic_fraction": 0.5,
  "release_until_fraction": 0.35,
